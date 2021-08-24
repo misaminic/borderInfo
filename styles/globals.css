@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary_color: #000;
+  --secondary_color: #fff;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  background-color: var(--primary_color);
+}
+
+a {
+  color: rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.primary_button {
+  padding: 1.3rem 0.7rem;
+  margin-bottom: 2rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  background-color: var(--secondary_color);
+  color: var(--primary_color, green);
+  transition: all 0.2s ease-in-out;
+  font-family: 'Oxygen', sans-serif;
+}
+
+.primary_button:hover {
+  transform: scale(0.98);
+}
