@@ -12,7 +12,7 @@ module.exports = {
       black: colors.black,
       white: colors.white,
       green: colors.emerald,
-      grey: colors.coolGray,
+      gray: colors.coolGray,
       yellow: colors.amber,
     },
 
@@ -28,6 +28,9 @@ module.exports = {
         '-0.37': '-0.37rem',
         '3po': '3.5rem',
       },
+      backgroundImage: (theme) => ({
+        'covid-pattern': "url('/img/covid-pattern.jpg')",
+      }),
     },
   },
   variants: {

@@ -8,6 +8,7 @@ import React, {
 import reducer from './filterReducer';
 import { GET_ALL_ITEMS, UPDATE_FILTERS } from './actions';
 import CovidPassport from '../components/CovidPassport';
+import CountryEntered from '../components/Country';
 
 const initialState = {
   filtered_items: [],
@@ -41,11 +42,11 @@ export const FilterProvider = ({ children }) => {
 
   // displaying notifications/warnings for forms
 
-  const [alert, setAlert] = useState({ show: false, msg: '', type: '' });
+  const [alert, setAlert] = useState({ show: false, msg: '' });
 
-  const showAlert = (show = false, msg: '') => {
+  const showAlert = useCallback((show = false, msg = '') => {
     setAlert({ show, msg });
-  };
+  }, []);
 
   const fetchAllItems = useCallback(() => {
     fetch(`/api/feedback/`)
@@ -64,8 +65,7 @@ export const FilterProvider = ({ children }) => {
     let value = e.target.value;
     let checked = e.target.checked;
     let inputType = e.target.attributes.type?.value;
-    console.log(e);
-    console.log(inputType);
+
     dispatch({ type: GET_ALL_ITEMS, payload: allItems });
 
     dispatch({
@@ -78,11 +78,11 @@ export const FilterProvider = ({ children }) => {
     e.preventDefault();
     // validating if all data is entered
     if (state.filters.countryEntered === '') {
-      showAlert(true, 'Please choose a country you entered');
+      showAlert(true, 'Choose a country you are travelling to');
     } else if (state.filters.countryFrom === '') {
-      showAlert(true, 'Please choose a country you traveled from');
+      showAlert(true, 'Choose a country you are travelling from');
     } else if (state.filters.passengerPapersStatus === '') {
-      showAlert(true, 'Please choose your status in the entered country');
+      showAlert(true, 'Choose status in the country you are travelling to');
     } else if (state.filters.hadCovid === '') {
       showAlert(true, 'Please answer if you have had Covid');
     } else if (state.filters.vaccinationStatus === '') {
@@ -105,6 +105,10 @@ export const FilterProvider = ({ children }) => {
       (state.filters.vaccinationStatus === 'got a first dose' &&
         state.filters.pcrStatus === '')
     ) {
+      showAlert(true, 'Please answer if you have taken PCR test');
+    } else if (state.filters.antiGenStatus === '') {
+      showAlert(true, 'Please answer if you have taken antigen test');
+    } else if (state.filters.pcrStatus === '') {
       showAlert(true, 'Please answer if you have taken PCR test');
     }
     // if all data is entered - dispatch action

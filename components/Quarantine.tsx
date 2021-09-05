@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import QuestionAnswer from './QuestionAnswer';
 import { useGlobalContext } from '../pages/context';
+import NextButton from './buildingBlocks/NextButton';
+import AdditionalQuestionBackButton from './AdditionalQuestionBackButton';
 
 const Quarantine = () => {
   const { getQuarantineStatus, getQuarantineDays, showAdditionalQuestion } =
     useGlobalContext();
 
-  const [days, setDays] = useState(0);
+  const [days, setDays] = useState(null);
 
   return (
     <>
@@ -16,18 +18,19 @@ const Quarantine = () => {
           answer1={'YES'}
           answer2={'NO'}
           stateHandlerFunc={getQuarantineStatus}
+          questionTextLong={true}
         />
       ) : (
         <>
-          <h3>HOW MANY DAYS?</h3>
+          <h3 className="text-2xl p-8">HOW MANY DAYS?</h3>
           <input
+            className="rounded"
             type="number"
             value={days}
             onChange={(e) => setDays(e.target.value)}
           />
-          <button type="submit" onClick={() => getQuarantineDays(days)}>
-            NEXT
-          </button>
+          <NextButton quarantineDays={days}>NEXT</NextButton>
+          {showAdditionalQuestion ? <AdditionalQuestionBackButton /> : null}
         </>
       )}
     </>

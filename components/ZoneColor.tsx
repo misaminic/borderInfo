@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useGlobalContext } from '../pages/context';
-import BackButton from './BackButton';
+import BackButton from './buildingBlocks/BackButton';
 
 const ZoneColor = () => {
   const { getZoneColor } = useGlobalContext();

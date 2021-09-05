@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import BackButton from './buildingBlocks/BackButton';
+import AdditionalQuestionBackButton from './AdditionalQuestionBackButton';
 
 const QuestionAnswer = ({
   question,
@@ -10,12 +12,20 @@ const QuestionAnswer = ({
   answer5,
   answer6,
   stateHandlerFunc,
+  manyCharacters,
+  additionalQuestionBtn,
+  questionTextLong,
 }) => {
   return (
-    <Qa>
-      <h3>{question}</h3>
+    <Qa manyCharacters={manyCharacters} questionTextLong={questionTextLong}>
+      <h3 className={'mb-10 question_answer_headline'}>{question}</h3>
       <ul>
-        <li onClick={(e) => stateHandlerFunc(e)}>{answer1}</li>
+        <li
+          // manyCharacter
+          onClick={(e) => stateHandlerFunc(e)}
+        >
+          {answer1}
+        </li>
         <li onClick={(e) => stateHandlerFunc(e)}>{answer2}</li>
         {answer3 ? (
           <li onClick={(e) => stateHandlerFunc(e)}>{answer3}</li>
@@ -30,11 +40,17 @@ const QuestionAnswer = ({
           <li onClick={(e) => stateHandlerFunc(e)}>{answer6}</li>
         ) : null}
       </ul>
+      {additionalQuestionBtn ? (
+        <AdditionalQuestionBackButton />
+      ) : (
+        <BackButton />
+      )}
     </Qa>
   );
 };
 
 const Qa = styled.article`
+  align-items: center;
   & {
     height: 100%;
     display: flex;
@@ -42,6 +58,9 @@ const Qa = styled.article`
     justify-content: center;
     text-align: center;
     color: var(--secondary_color);
+  }
+  h3 {
+    padding: ${(props) => (props.questionTextLong ? '1rem' : '0')};
   }
   ul {
     display: flex;
@@ -54,16 +73,10 @@ const Qa = styled.article`
     font-size: 1.3rem;
     font-weight: bold;
     background: #fff;
-    padding: 1rem;
+    padding: ${(props) => (props.manyCharacters ? '1rem' : '0.6rem 1.8rem')};
     margin-bottom: 1.8rem;
     cursor: pointer;
     color: var(--primary_color);
-  }
-  button {
-    position: absolute;
-    bottom: 3rem;
-    left: 3rem;
-    padding: 1.5rem;
   }
 `;
 

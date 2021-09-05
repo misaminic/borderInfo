@@ -1,26 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useGlobalContext } from '../pages/context';
+import NextButton from './buildingBlocks/NextButton';
+import BackButton from './buildingBlocks/BackButton';
 
 const WaitingTIme = () => {
   const { getWaitingTime } = useGlobalContext();
-  const minutes = useRef(0);
+  let minutes = useRef(0);
 
-  useEffect(() => {
-    if (minutes.current.value) {
-      console.log(minutes.current.value);
-    }
-  }, [minutes.current.value]);
+  const [waitingTime, setWaitingTime] = useState(null);
+  // useEffect(() => {
+  //   if (minutes.current.value) {
+  //     console.log(minutes.current.value);
+  //   }
+  // }, [minutes.current.value]);
 
   return (
     <>
-      <h3>How long it took you to cross the border?</h3>
-      <input type="number" ref={minutes} />
-      <button
-        type="submit"
-        onClick={() => getWaitingTime(minutes.current.value)}
-      >
-        NEXT
-      </button>
+      <h3 className="text-2xl p-8 text-center waiting_time">
+        How long it took you to cross the border?
+      </h3>
+      <input
+        className="rounded"
+        type="number"
+        value={waitingTime}
+        onChange={(e) => setWaitingTime(e.target.value)}
+      />
+      <NextButton waitingTime={waitingTime}>NEXT</NextButton>
+      <BackButton />
     </>
   );
 };

@@ -13,24 +13,25 @@ function Home() {
         <title>Border Info</title>
         <meta
           name="description"
-          content="providing information regarding borders and their current state"
+          content="providing information regarding borders and their current state regarding covid-19"
         />
         {/* <link rel="icon" href="" /> */}
       </Head>
 
-      <main className={(styles.main, 'bg-gray-50')}>
+      <main className={styles.main}>
         <section>
-          <h1>BORDER INFO</h1>
+          <h1 className="front_page_title">BORDER INFO</h1>
+          <p>MAKING TRAVELLING EASIER</p>
         </section>
         <section className={styles.intro_page}>
           <Link href={'/showBorderStatus'}>
             <button className={'primary_button'}>
-              <a>Find out how is it at a border</a>
+              <a>Check border</a>
             </button>
           </Link>
           <Link href={'/feedback'}>
             <button className={'primary_button'}>
-              <a>Give feedback how was it a border</a>
+              <a>Post border info</a>
             </button>
           </Link>
         </section>

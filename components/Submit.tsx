@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useGlobalContext } from '../pages/context';
+import SubmitButton from './buildingBlocks/SubmitButton';
 
 const Submit = () => {
   const { getComment, submitUserFeedbackToDB } = useGlobalContext();
@@ -14,21 +15,23 @@ const Submit = () => {
 
   return (
     <>
-      <h3>The form is completed</h3>
-      <p>
-        If you want to add any comment, please write it in the textbox below.
+      <h1 className="text-2xl font-bold">THE FORM IS COMPLETED</h1>
+      <p className="p-8 text-center">
+        If you have any additional info, please write it below.
       </p>
       <textarea
+        className="text-black rounded p-2"
         name="comment"
         id="textarea_submit"
-        cols="30"
-        rows="10"
+        cols="32"
+        rows="6"
         value={textareaValue}
         onChange={(e) => setTextareaValue(e.target.value)}
       ></textarea>
-      <button type="submit" onClick={(e) => submitUserFeedbackToDB(e)}>
+      <SubmitButton handler={submitUserFeedbackToDB} />
+      {/* <button type="submit" onClick={(e) => submitUserFeedbackToDB(e)}>
         SUBMIT
-      </button>
+      </button> */}
     </>
   );
 };

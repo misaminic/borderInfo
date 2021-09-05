@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useGlobalContext } from '../pages/context';
 import Link from 'next/link';
 import countries from './../pages/AllCountriesNames.json';
+import SelectElement from './buildingBlocks/SelectElement';
+import BackButton from './buildingBlocks/BackButton';
 
 const CountryEntered = (data) => {
   const {
@@ -12,40 +14,21 @@ const CountryEntered = (data) => {
     currentQuestionDisplayed,
     countryEntered,
   } = useGlobalContext();
-  console.log(currentQuestionDisplayed);
-  console.log(countryEntered);
+
   return (
     <>
-      <article>
-        <select
-          key={1}
-          name="country"
-          id="country"
-          onChange={(e) => getCountryEntered(e)}
-        >
-          <option value="">
-            {countryEntered ? countryEntered : 'CHOOSE A COUNTRY YOU ENTERED'}
-          </option>
-          {countries.map((item, index) => {
-            const { name } = item;
-            return (
-              <option key={index + 1} value={name}>
-                {name}
-              </option>
-            );
-          })}
-        </select>
-        <button
-          type="button"
-          onClick={() => getPreviousQuestion(currentQuestionDisplayed)}
-        >
-          BACK
-        </button>
+      <article className={'feedback_question_wrapper'}>
+        <label htmlFor={'countryEntered'}>Country you travelled to</label>
+        <SelectElement
+          name={'countryEntered'}
+          value={countryEntered}
+          handler={getCountryEntered}
+          itemsData={countries}
+        />
+        <BackButton />
       </article>
     </>
   );
 };
-
-const SelectCountry = styled.article``;
 
 export default CountryEntered;

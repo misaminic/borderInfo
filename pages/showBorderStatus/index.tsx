@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTransition, useSpring, animated } from 'react-spring';
 import countries from '../AllCountriesNames.json';
 import { useFilterContext } from '../filterContext';
 import styled from 'styled-components';
@@ -6,6 +7,7 @@ import _ from 'lodash';
 import RadioCheckbox from '../../components/buildingBlocks/RadioCheckbox';
 import Alert from '../../components/buildingBlocks/Alert';
 import ActionButton from '../../components/buildingBlocks/ActionButton';
+import SelectElement from '../../components/buildingBlocks/SelectElement';
 
 const ShowBorderStatus = () => {
   const [results, setResults] = useState([]);
@@ -39,59 +41,50 @@ const ShowBorderStatus = () => {
   const countryIn = filtered_items[0]?.countryEntered;
   const countryOut = filtered_items[0]?.countryFrom;
 
+  const transition = useTransition(vaccinationStatus, {
+    loop: false,
+    from: { y: 100, opacity: 0 },
+    enter: { y: 0, opacity: 1 },
+  });
+
+  const transitionForAlert = useTransition(alert, {
+    // loop: false,
+    from: { y: 100, opacity: 0 },
+    enter: { y: 0, opacity: 1 },
+  });
+
   return (
-    <div className="w-screen flex flex-col items-center justify-center mt-10">
-      <h1 className="text-center mb-8">
-        CHECK IF SOMEONE TRAVELED TO THE SAME PLACE WITH THE SAME STATUS AS YOU
+    <div className="w-screen flex flex-col items-center justify-center mt-10 px-3">
+      <h1 className="text-center mb-8 text-lg font-bold">
+        SET YOUR ROUTE AND STATUS
       </h1>
       <ShowStatusSections no_mt={true}>
         <LabelForQuestionsWithSelect htmlFor="countryEntered">
           TRAVELLING TO
         </LabelForQuestionsWithSelect>
-        <QuestionsWithSelect>
-          <select
-            name="countryEntered"
-            value={countryEntered}
-            onChange={updateFilters}
-          >
-            <option value="">
-              {countryEntered ? countryEntered : 'CHOOSE A COUNTRY'}
-            </option>
-            {countries.map((item, index) => {
-              const { name } = item;
-              return (
-                <option key={index + 1} value={name}>
-                  {name}
-                </option>
-              );
-            })}
-          </select>
-        </QuestionsWithSelect>
+        <SelectElement
+          name={'countryEntered'}
+          value={countryEntered}
+          handler={updateFilters}
+          itemsData={countries}
+        />
+        {/* <QuestionsWithSelect>
+          
+        </QuestionsWithSelect> */}
       </ShowStatusSections>
       <ShowStatusSections>
         <LabelForQuestionsWithSelect htmlFor="countryFrom">
           TRAVELLING FROM
         </LabelForQuestionsWithSelect>
-        <QuestionsWithSelect>
-          <select
-            name="countryFrom"
-            value={countryFrom}
-            onChange={updateFilters}
-            required
-          >
-            <option value="">
-              {countryFrom ? countryFrom : 'CHOOSE A COUNTRY'}
-            </option>
-            {countries.map((item, index) => {
-              const { name } = item;
-              return (
-                <option key={index + 1} value={name}>
-                  {name}
-                </option>
-              );
-            })}
-          </select>
-        </QuestionsWithSelect>
+        <SelectElement
+          name={'countryFrom'}
+          value={countryFrom}
+          handler={updateFilters}
+          itemsData={countries}
+        />
+        {/* <QuestionsWithSelect>
+         
+        </QuestionsWithSelect> */}
       </ShowStatusSections>
       {/* <ShowStatusSections>
         <div className="search_input">
@@ -125,10 +118,24 @@ const ShowBorderStatus = () => {
         </div>
       </ShowStatusSections> */}
       <ShowStatusSections>
-        <LabelForQuestionsWithSelect htmlFor="passengerPapersStatus">
-          PASSENGER STATUS IN THE ENTERED COUNTRY:
+        <LabelForQuestionsWithSelect
+          htmlFor="passengerPapersStatus"
+          longText={true}
+        >
+          STATUS IN THE COUNTRY YOU ARE TRAVELLING TO
         </LabelForQuestionsWithSelect>
-        <QuestionsWithSelect>
+        <SelectElement
+          name={'passengerPapersStatus'}
+          value={passengerPapersStatus}
+          handler={updateFilters}
+          itemsData={[
+            { name: 'tourist' },
+            { name: 'citizen' },
+            { name: 'permanent residency' },
+            { name: 'temporary residency' },
+          ]}
+        />
+        {/* <QuestionsWithSelect>
           <select
             name="passengerPapersStatus"
             value={passengerPapersStatus}
@@ -145,7 +152,7 @@ const ShowBorderStatus = () => {
             <option value="permanent residency">PERMANENT RESIDENCY</option>
             <option value="temporary residency">TEMPORARY RESIDENCY</option>
           </select>
-        </QuestionsWithSelect>
+        </QuestionsWithSelect> */}
       </ShowStatusSections>
       {/* <ShowStatusSections>
         <div className="search_input">
@@ -227,24 +234,35 @@ const ShowBorderStatus = () => {
               </label>
             </div>
           </ShowStatusSections> */}
-
-          <ShowStatusSections>
-            <QuestionHeadline>Has covid passport</QuestionHeadline>
-            <QuestionWrapper>
-              {['yes', 'no'].map((item, i) => {
-                return (
-                  <RadioCheckbox
-                    key={i}
-                    name={'covidPassport'}
-                    value={item}
-                    handler={updateFilters}
-                    valueInState={covidPassport}
-                    item={item}
-                  />
-                );
-              })}
-            </QuestionWrapper>
-          </ShowStatusSections>
+          {transition((style, item) =>
+            item ? (
+              <>
+                <animated.div style={style} className="item">
+                  <ShowStatusSections>
+                    <QuestionHeadline>Has covid passport</QuestionHeadline>
+                    <QuestionWrapper>
+                      <RadioCheckbox
+                        key={7}
+                        name={'covidPassport'}
+                        value={'yes'}
+                        handler={updateFilters}
+                        valueInState={covidPassport}
+                        item={'yes'}
+                      />
+                      <RadioCheckbox
+                        key={8}
+                        name={'covidPassport'}
+                        value={'no'}
+                        handler={updateFilters}
+                        valueInState={covidPassport}
+                        item={'no'}
+                      />
+                    </QuestionWrapper>
+                  </ShowStatusSections>
+                </animated.div>
+              </>
+            ) : null
+          )}
         </>
       ) : null}
 
@@ -283,15 +301,30 @@ const ShowBorderStatus = () => {
           })}
         </QuestionWrapper>
       </ShowStatusSections>
+      {transitionForAlert((style, item) =>
+        item ? (
+          <>
+            <animated.div style={style} className="item">
+              {alert ? <Alert {...alert} /> : null}
+            </animated.div>
+          </>
+        ) : null
+      )}
 
-      <ActionButton handler={filterResults} />
-      {alert ? <Alert {...alert} /> : null}
+      <ActionButton handler={filterResults} text={'SEARCH'} />
       <ResultSection>
-        {numberOfHits > 0 ? (
+        {numberOfHits > 0 && numberOfHits < 2 ? (
           <>
             <h1>
-              {`Number of passengers traveling from ${countryIn} to ${countryOut}
-              matching your search criteria is ${numberOfHits}`}
+              {`There is ${numberOfHits} passenger
+              matching your search.`}
+            </h1>
+          </>
+        ) : numberOfHits > 1 ? (
+          <>
+            <h1>
+              {`There is ${numberOfHits} passengers
+              matching your search criteria.`}
             </h1>
           </>
         ) : filtered_items === false ? (
@@ -300,7 +333,7 @@ const ShowBorderStatus = () => {
           </>
         ) : null}
 
-        {numberOfHits > 0 && <h2>Comments:</h2>}
+        {numberOfHits > 0 && <h3>Comments</h3>}
         {numberOfHits > 0 &&
           _.map(results, (item) => {
             // counting how much time has passed since a comment has been submited
@@ -326,27 +359,41 @@ const ShowBorderStatus = () => {
             const finalTime = roundToHalf(countTime);
 
             const elapsedTimeInSeconds = (endTimeStamp - item.timeStamp) / 1000;
-
+            console.log(finalTime);
             // checking if more than one day
             if (+finalTime > 23.5) {
-              return <p>{`${item.comment} ${item.feedbackPostedTime}`}</p>;
+              return (
+                <div className="each_comment">
+                  <p className="time">{`posted ${item.feedbackPostedTime}`}</p>
+                  <p>{`${item.comment}`}</p>
+                </div>
+              );
               // time in hours
-            } else if (+finalTime <= 23.5 && +finalTime > 1) {
-              return <p>{`${item.comment} ${finalTime}h ago`}</p>;
+            } else if (+finalTime <= 23.5 && +finalTime >= 1) {
+              return (
+                <div className="each_comment">
+                  <p className="time">{`posted ${finalTime}h ago`}</p>
+                  <p>{`${item.comment}`}</p>
+                </div>
+              );
               // time in minutes
             } else if (elapsedTimeInSeconds > 60) {
               let timeInMinutes = (endTimeStamp - item.timeStamp) / (1000 * 60);
               return (
-                <p>{`${item.comment} ${parseFloat(timeInMinutes).toFixed(
-                  0
-                )}m ago`}</p>
+                <div className="each_comment">
+                  <p className="time">{`posted ${parseFloat(
+                    timeInMinutes
+                  ).toFixed(0)}m ago`}</p>
+                  <p>{`${item.comment}`}</p>
+                </div>
               );
               // time in seconds
             } else if (elapsedTimeInSeconds < 60) {
               return (
-                <p>{`${item.comment} ${parseFloat(elapsedTimeInSeconds).toFixed(
-                  0
-                )}s ago`}</p>
+                <div className="each_comment">
+                  <p>{`${parseFloat(elapsedTimeInSeconds).toFixed(0)}s ago`}</p>
+                  <p>{`${item.comment}`}</p>
+                </div>
               );
             }
           })}
@@ -359,12 +406,44 @@ const ShowStatusSections = styled.section`
   display: flex;
   flex-direction: column;
   place-self: center;
-  margin-top: 5rem;
-  margin-top: ${(props) => (props.no_mt ? '0' : '5rem')};
+  margin-top: ${(props) => (props.no_mt ? '0' : '3rem')};
 `;
 
 const ResultSection = styled.section`
   margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+
+  h3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+    color: black;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    background: white;
+    color: black;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    font-weight: bold;
+  }
+
+  .each_comment {
+    margin-top: 0.5rem;
+    border-top: 1px solid #fff;
+  }
+
+  .time {
+    text-align: left;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const QuestionWrapper = styled.div`
@@ -378,10 +457,15 @@ const QuestionHeadline = styled.div`
   display: flex;
   justify-content: center;
   text-transform: uppercase;
-  font-weight: 700;
-  font-size: 1.3rem;
+  font-weight: 500;
+  font-size: 1.1rem;
   letter-spacing: 0.1rem;
-  line-height: 3rem;
+  line-height: 2rem;
+  margin-bottom: 0.7rem;
+  text-decoration-line: underline;
+  text-underline-offset: 0.35rem;
+  text-decoration-color: rgba(52, 211, 153, 0.9);
+
   @media only screen and (min-width: 640px) {
     /* font-weight: 700;
   font-size: 1.3rem;
@@ -394,11 +478,17 @@ const LabelForQuestionsWithSelect = styled.label`
   display: flex;
   justify-content: center;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1.1rem;
   letter-spacing: 0.1rem;
-  line-height: 3rem;
+  line-height: 2rem;
   margin-bottom: 1rem;
+  text-decoration-line: underline;
+  text-decoration-color: rgba(52, 211, 153, 0.9);
+  /* text-underline-position: under; */
+  text-underline-offset: 0.35rem;
+  letter-spacing: ${(props) => (props.longText ? '0' : '0.1rem')};
+  font-size: ${(props) => (props.longText ? '0.85rem' : '1.1rem')};
 `;
 
 const QuestionsWithSelect = styled.div`

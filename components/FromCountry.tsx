@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useGlobalContext } from '../pages/context';
 import countries from './../pages/AllCountriesNames.json';
+import SelectElement from './buildingBlocks/SelectElement';
+import BackButton from './buildingBlocks/BackButton';
 
 const FromCountry = () => {
   const {
@@ -18,30 +20,16 @@ const FromCountry = () => {
 
   return (
     <>
-      <article>
-        <select
-          key={1}
-          name="country"
-          id="country"
-          onChange={(e) => getCountryFrom(e)}
-        >
-          <option value="">CHOOSE A COUNTRY FROM WHICH YOU ENTERED</option>
-          {ListOfCountriesWithoutTheEnteringOne &&
-            ListOfCountriesWithoutTheEnteringOne.map((item, index) => {
-              const { name } = item;
-              return (
-                <option key={index + 1} value={name}>
-                  {name}
-                </option>
-              );
-            })}
-        </select>
-        <button
-          type="button"
-          onClick={() => getPreviousQuestion(currentQuestionDisplayed)}
-        >
-          BACK
-        </button>
+      <article className={'feedback_question_wrapper'}>
+        <label htmlFor={'countryFrom'}>Country you travelled from</label>
+
+        <SelectElement
+          name={'countryFrom'}
+          value={countryEntered}
+          handler={getCountryFrom}
+          itemsData={ListOfCountriesWithoutTheEnteringOne}
+        />
+        <BackButton />
       </article>
     </>
   );

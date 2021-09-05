@@ -1,20 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useFilterContext } from '../../pages/filterContext';
 
 const Alert = ({ msg }) => {
   const { showAlert: removeAlert } = useFilterContext();
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      removeAlert();
-    }, 5000);
-    return () => clearTimeout(timeout);
-  }, [removeAlert]);
+    if (msg !== '') {
+      const timeout = setTimeout(() => {
+        removeAlert();
+        console.log('aaa');
+      }, 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [removeAlert, msg]);
 
   return (
-    <div>
-      <p>{msg}</p>
-    </div>
+    <>
+      {msg ? (
+        <div className="bg-white text-black font-semibold mt-8 p-3 rounded">
+          <p>{msg}</p>
+        </div>
+      ) : null}
+    </>
   );
 };
 

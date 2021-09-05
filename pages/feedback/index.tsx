@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import CountryEntered from '../../components/Country';
 import FromCountry from '../../components/FromCountry';
-import axios from 'axios';
 import { useGlobalContext } from '../context';
 import ZoneColor from '../../components/ZoneColor';
 import NameOfTheBorder from '../../components/NameOfTheBorder';
@@ -16,13 +15,19 @@ import Quarantine from '../../components/Quarantine';
 import WaitingTime from '../../components/WaitingTIme';
 import Submit from '../../components/Submit';
 import SendData from '../../components/SendData';
-import countries from '../AllCountriesNames.json';
+import { useRouter } from 'next/router';
 
 interface Country {
   name: string;
 }
 
 const Feedback = () => {
+  let router = useRouter();
+
+  function handleClick() {
+    router.push('/');
+  }
+
   const {
     countryEntered,
     countryFrom,
@@ -34,20 +39,21 @@ const Feedback = () => {
   return (
     <>
       <PrimarySection>
+        {currentQuestionDisplayed === -1 && handleClick()}
         {currentQuestionDisplayed === 0 && <CountryEntered />}
         {currentQuestionDisplayed === 1 && <FromCountry />}
-        {currentQuestionDisplayed === 2 && <ZoneColor />}
-        {currentQuestionDisplayed === 3 && <NameOfTheBorder />}
-        {currentQuestionDisplayed === 4 && <PassengerPapersStatus />}
-        {currentQuestionDisplayed === 5 && <HadCovid />}
-        {currentQuestionDisplayed === 6 && <Vaccine />}
-        {currentQuestionDisplayed === 7 && <CovidPassport />}
-        {currentQuestionDisplayed === 8 && <AntiGen />}
-        {currentQuestionDisplayed === 9 && <Pcr />}
-        {currentQuestionDisplayed === 10 && <Quarantine />}
-        {currentQuestionDisplayed === 11 && <WaitingTime />}
-        {currentQuestionDisplayed === 12 && <Submit />}
-        {currentQuestionDisplayed === 13 && <SendData />}
+        {/* {currentQuestionDisplayed === 2 && <ZoneColor />} */}
+        {currentQuestionDisplayed === 2 && <NameOfTheBorder />}
+        {currentQuestionDisplayed === 3 && <PassengerPapersStatus />}
+        {currentQuestionDisplayed === 4 && <HadCovid />}
+        {currentQuestionDisplayed === 5 && <Vaccine />}
+        {currentQuestionDisplayed === 6 && <CovidPassport />}
+        {currentQuestionDisplayed === 7 && <AntiGen />}
+        {currentQuestionDisplayed === 8 && <Pcr />}
+        {currentQuestionDisplayed === 9 && <Quarantine />}
+        {currentQuestionDisplayed === 10 && <WaitingTime />}
+        {currentQuestionDisplayed === 11 && <Submit />}
+        {currentQuestionDisplayed === 12 && <SendData />}
       </PrimarySection>
     </>
   );

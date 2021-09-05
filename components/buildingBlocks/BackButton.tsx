@@ -1,14 +1,16 @@
 import React from 'react';
+import { useGlobalContext } from '../../pages/context';
 import styled from 'styled-components';
 
-const ActionButton = ({ handler, text }) => {
+const BackButton = () => {
+  const { getPreviousQuestion, currentQuestionDisplayed } = useGlobalContext();
+
   return (
     <Button
       type="button"
-      className="button active:transform active:scale-90"
-      onClick={handler}
+      onClick={() => getPreviousQuestion(currentQuestionDisplayed)}
     >
-      {text}
+      BACK
     </Button>
   );
 };
@@ -25,11 +27,6 @@ const Button = styled.button`
   border-radius: 0.25rem;
   border: 1px solid #fff;
   transition: all 0.3s cubic-bezier(0.67, 0.17, 0.4, 0.83);
-
-  /* &:hover {
-    background: ${(props) => (props.toggleHover ? '#fff' : '#000')};
-    color: ${(props) => (props.toggleHover ? '#000' : '#fff')};
-  } */
 `;
 
-export default ActionButton;
+export default BackButton;

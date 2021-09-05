@@ -20,6 +20,7 @@ import {
   GET_COMMENT,
   GET_PREVIOUS_QUESTION,
   SHOW_RIGHT_QUESTION,
+  FEEDBACK_SUBMITING_FINISHED,
 } from './actions';
 
 import _ from 'lodash';
@@ -41,8 +42,8 @@ const initialState = {
   pcrStatus: '',
   antiGenStatus: '',
   quarantineStatus: '',
-  quarantineDays: 0,
-  waitingTime: 0,
+  quarantineDays: '',
+  waitingTime: '',
   comment: '',
   feedbackPostedTime: '',
   timeStamp: '',
@@ -60,6 +61,9 @@ const AppProvider = ({ children }) => {
         'Content-Type': 'application/json',
       },
     });
+    setTimeout(() => {
+      dispatch({ type: FEEDBACK_SUBMITING_FINISHED });
+    }, 3000);
   };
 
   const submitUserFeedbackToDB = async (e) => {
@@ -75,15 +79,12 @@ const AppProvider = ({ children }) => {
     const postedTime = `${day}/${month}/${year}, ${hour}:${minutes}h`;
 
     const timeStamp = _.now();
-    console.log(postedTime);
-
-    dispatch({
-      type: SUBMIT_USER_FEED_BACK_TO_DB,
-      payload: { postedTime, timeStamp },
-    });
-
-    // .then((response) => response.json())
-    // .then((data) => console.log(data));
+    setTimeout(() => {
+      dispatch({
+        type: SUBMIT_USER_FEED_BACK_TO_DB,
+        payload: { postedTime, timeStamp },
+      });
+    }, 2000);
 
     console.log(state);
   };

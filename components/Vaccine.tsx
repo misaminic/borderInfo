@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import QuestionAnswer from './QuestionAnswer';
-import BackButton from './BackButton';
+import BackButton from './buildingBlocks/BackButton';
 import { useGlobalContext } from '../pages/context';
 import AdditionalQuestionBackButton from './AdditionalQuestionBackButton';
 
@@ -19,12 +19,11 @@ const Vaccine = () => {
         <>
           <QuestionAnswer
             question={'ARE YOU VACCINATED?'}
-            answer1={'YES, BOTH DOSES.'}
-            answer2={'GOT A FIRST DOSE.'}
+            answer1={'YES'}
+            answer2={'GOT A FIRST DOSE'}
             answer3={'NO'}
             stateHandlerFunc={getVaccinationStatus}
           />
-          <BackButton />
         </>
       ) : null}
       {showAdditionalQuestion ? (
@@ -38,8 +37,8 @@ const Vaccine = () => {
             answer5={'SINOFARM'}
             answer6={'JOHNSON & JOHNSON'}
             stateHandlerFunc={getVaccineName}
+            additionalQuestionBtn={true}
           />
-          <AdditionalQuestionBackButton />
         </>
       ) : null}
     </Questions>
@@ -47,6 +46,9 @@ const Vaccine = () => {
 };
 
 const Questions = styled.article`
+  height: calc(100vh + 5rem);
+  margin-top: 4rem;
+  margin-bottom: 4rem;
   ul {
     list-style-type: none;
   }

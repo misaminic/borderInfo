@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const SubmitButton = ({ handler }) => {
-  const [searchBtn, setSearchBtn] = useState(false);
+  const [submitBtn, setSubmitBtn] = useState(false);
 
   const tickMark = (
     <svg
@@ -24,12 +24,12 @@ const SubmitButton = ({ handler }) => {
       type="submit"
       onClick={handler}
       className={`w-12 h-12 bg-green-500 transition-all button ${
-        searchBtn === true ? 'button_circle' : null
+        submitBtn === true ? 'button_circle' : null
       } `}
     >
       <div className="container">
-        <div className="tick" onClick={() => setSearchBtn(true)}>
-          {searchBtn === false ? 'SEARCH' : tickMark}
+        <div className="tick" onClick={() => setSubmitBtn(true)}>
+          {submitBtn === false ? 'SUBMIT' : tickMark}
         </div>
       </div>
       <style jsx>{`
@@ -40,14 +40,17 @@ const SubmitButton = ({ handler }) => {
           width: 9rem;
           height: 3rem;
           margin-top: 2rem;
-          background: dodgerblue;
+          letter-spacing: 0.1rem;
+          background: #000;
+          border: 1px solid #fff;
           border-radius: 0.25rem;
           transition: all 0.3s cubic-bezier(0.67, 0.17, 0.4, 0.83);
         }
         .button_circle {
           width: 3rem;
           height: 3rem;
-          background: mediumseagreen;
+          border-color: transparent;
+          background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
           border-radius: 50%;
           transform: rotate(-180deg);
         }

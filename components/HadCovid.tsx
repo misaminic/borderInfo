@@ -1,7 +1,7 @@
 import React from 'react';
 import QuestionAnswer from './QuestionAnswer';
 import { useGlobalContext } from '../pages/context';
-import BackButton from './BackButton';
+import BackButton from './buildingBlocks/BackButton';
 
 const HadCovid = () => {
   const { getHadCovid } = useGlobalContext();
@@ -14,7 +14,6 @@ const HadCovid = () => {
         answer2={'NO'}
         stateHandlerFunc={getHadCovid}
       />
-      <BackButton />
     </>
   );
 };
