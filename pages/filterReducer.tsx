@@ -1,8 +1,35 @@
-import { GET_ALL_ITEMS, UPDATE_FILTERS } from './actions';
+import { GET_ALL_ITEMS, UPDATE_FILTERS, FILTER_RESULTS } from './actions';
 import _ from 'lodash';
 import CovidPassport from '../components/CovidPassport';
 
-const filterReducer = (state, action) => {
+type ActionType = {
+  type: 'GET_ALL_ITEMS' | 'UPDATE_FILTERS' | 'FILTER_RESULTS';
+  payload: any;
+};
+
+type Initial_State = {
+  filtered_items: (string | number | boolean)[];
+  all_items: (string | number | boolean)[] | any;
+  filters: {
+    countryEntered: string;
+    countryFrom: string;
+    passengerPapersStatus: string;
+    zoneColor: string;
+    borderName: string;
+    hadCovid: string;
+    vaccinationStatus: string;
+    vaccineName: string;
+    covidPassport: string;
+    pcrStatus: string;
+    antiGenStatus: string;
+    quarantineStatus: string;
+    comment: string;
+    feedbackPostedTime: string;
+    timeStamp: string;
+  };
+};
+
+const filterReducer = (state: Initial_State, action: ActionType) => {
   if (action.type === GET_ALL_ITEMS) {
     return { ...state, all_items: action.payload };
   }
@@ -53,10 +80,12 @@ const filterReducer = (state, action) => {
     };
   }
 
-  if (action.type === 'FILTER_RESULTS') {
+  if (action.type === FILTER_RESULTS) {
     if (state.all_items.borderInfo && state.filters) {
       // checks value types in an object received from a user
-      const checkValueType = (propertyInTheObject) => {
+      const checkValueType = (
+        propertyInTheObject: string | number | boolean
+      ) => {
         if (propertyInTheObject === '') {
           return false;
         } else if (

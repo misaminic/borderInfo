@@ -4,7 +4,7 @@ import { useGlobalContext } from '../pages/context';
 import BackButton from './buildingBlocks/BackButton';
 
 const ZoneColor = () => {
-  const { getZoneColor } = useGlobalContext();
+  const { getZoneColor }: any = useGlobalContext();
 
   return (
     <>

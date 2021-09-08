@@ -4,13 +4,52 @@ import React, {
   useContext,
   useReducer,
   useCallback,
+  ChangeEventHandler,
+  ChangeEvent,
 } from 'react';
 import reducer from './filterReducer';
-import { GET_ALL_ITEMS, UPDATE_FILTERS } from './actions';
+import { GET_ALL_ITEMS, UPDATE_FILTERS, FILTER_RESULTS } from './actions';
 import CovidPassport from '../components/CovidPassport';
 import CountryEntered from '../components/Country';
 
-const initialState = {
+type Props = {
+  children: JSX.Element;
+};
+
+enum ActionType {
+  GET_ALL_ITEMS = 'GET_ALL_ITEMS',
+  UPDATE_FILTERS = 'UPDATE_FILTERS',
+  FILTER_RESULTS = 'FILTER_RESULTS',
+}
+
+// interface IReducer {
+//   type: ActionType;
+//   payload: string | number | boolean | any;
+// }
+
+type Filter_State = {
+  filtered_items: any;
+  all_items: any;
+  filters: {
+    countryEntered: string;
+    countryFrom: string;
+    passengerPapersStatus: string;
+    zoneColor: string;
+    borderName: string;
+    hadCovid: string;
+    vaccinationStatus: string;
+    vaccineName: string;
+    covidPassport: string;
+    pcrStatus: string;
+    antiGenStatus: string;
+    quarantineStatus: string;
+    comment: string;
+    feedbackPostedTime: string;
+    timeStamp: string;
+  };
+};
+
+const initialState: Filter_State = {
   filtered_items: [],
   all_items: [],
   filters: {
@@ -32,10 +71,13 @@ const initialState = {
   },
 };
 
-const FilterContext = React.createContext();
+const FilterContext = React.createContext({});
 
-export const FilterProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export const FilterProvider = ({ children }: Props) => {
+  const [state, dispatch] = useReducer<React.Reducer<any, any>>(
+    reducer,
+    initialState
+  );
 
   //   sets all items in reducer's state
   const [allItems, setAllItems] = useState([]);
@@ -44,7 +86,7 @@ export const FilterProvider = ({ children }) => {
 
   const [alert, setAlert] = useState({ show: false, msg: '' });
 
-  const showAlert = useCallback((show = false, msg = '') => {
+  const showAlert = useCallback((show: boolean = false, msg: string = '') => {
     setAlert({ show, msg });
   }, []);
 
@@ -60,7 +102,7 @@ export const FilterProvider = ({ children }) => {
     fetchAllItems();
   }, [fetchAllItems]);
 
-  const updateFilters = (e) => {
+  const updateFilters = (e: ChangeEvent<HTMLInputElement>) => {
     let name = e.target.name;
     let value = e.target.value;
     let checked = e.target.checked;
@@ -74,7 +116,7 @@ export const FilterProvider = ({ children }) => {
     });
   };
 
-  const filterResults = (e) => {
+  const filterResults = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     // validating if all data is entered
     if (state.filters.countryEntered === '') {
@@ -113,7 +155,7 @@ export const FilterProvider = ({ children }) => {
     }
     // if all data is entered - dispatch action
     else {
-      dispatch({ type: 'FILTER_RESULTS' });
+      dispatch({ type: FILTER_RESULTS });
     }
   };
 

@@ -20,6 +20,7 @@
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.172",
     "@types/react": "17.0.14",
     "@welldone-software/why-did-you-render": "^6.2.1",
     "autoprefixer": "^10.3.1",

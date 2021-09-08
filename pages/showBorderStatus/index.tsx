@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTransition, useSpring, animated } from 'react-spring';
 import countries from '../AllCountriesNames.json';
 import { useFilterContext } from '../filterContext';
@@ -30,16 +30,24 @@ const ShowBorderStatus = () => {
     filtered_items,
     updateFilters,
     filterResults,
-  } = useFilterContext();
+  }: any = useFilterContext();
 
-  useEffect(() => {
-    setResults(filtered_items);
-  }, [filtered_items]);
+  const results_section = useRef(null);
 
   // Displaying results values
   const numberOfHits = _.size(results);
   const countryIn = filtered_items[0]?.countryEntered;
   const countryOut = filtered_items[0]?.countryFrom;
+
+  useEffect(() => {
+    setResults(filtered_items);
+  }, [filtered_items]);
+
+  useEffect(() => {
+    if (results_section.current && numberOfHits > 0) {
+      results_section.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [numberOfHits]);
 
   const transition = useTransition(vaccinationStatus, {
     loop: false,
@@ -312,20 +320,22 @@ const ShowBorderStatus = () => {
       )}
 
       <ActionButton handler={filterResults} text={'SEARCH'} />
-      <ResultSection>
+      <ResultSection ref={results_section}>
         {numberOfHits > 0 && numberOfHits < 2 ? (
           <>
-            <h1>
+            <QuestionHeadline>Results</QuestionHeadline>
+            <p className="results_text">
               {`There is ${numberOfHits} passenger
               matching your search.`}
-            </h1>
+            </p>
           </>
         ) : numberOfHits > 1 ? (
           <>
-            <h1>
+            <QuestionHeadline>Results</QuestionHeadline>
+            <p className="results_text">
               {`There is ${numberOfHits} passengers
-              matching your search criteria.`}
-            </h1>
+              matching your search.`}
+            </p>
           </>
         ) : filtered_items === false ? (
           <>
@@ -333,17 +343,17 @@ const ShowBorderStatus = () => {
           </>
         ) : null}
 
-        {numberOfHits > 0 && <h3>Comments</h3>}
+        {numberOfHits > 0 && <h3>Additional info</h3>}
         {numberOfHits > 0 &&
-          _.map(results, (item) => {
+          _.map(results, (item: any) => {
             // counting how much time has passed since a comment has been submited
             let endTimeStamp = _.now();
             // final time is in hours
             let countTime = (endTimeStamp - item.timeStamp) / (1000 * 60 * 60);
 
             // get if time passed is half an hour or a whole hour
-            const roundToHalf = (value) => {
-              const converted = parseFloat(value).toFixed(1);
+            const roundToHalf = (value: any) => {
+              const converted: any = parseFloat(value).toFixed(1);
               let decimal = converted - parseInt(converted, 10);
               decimal = Math.round(decimal * 10);
               if (decimal == 5) {
@@ -358,41 +368,81 @@ const ShowBorderStatus = () => {
 
             const finalTime = roundToHalf(countTime);
 
-            const elapsedTimeInSeconds = (endTimeStamp - item.timeStamp) / 1000;
+            const elapsedTimeInSeconds: any =
+              (endTimeStamp - item.timeStamp) / 1000;
             console.log(finalTime);
             // checking if more than one day
             if (+finalTime > 23.5) {
               return (
-                <div className="each_comment">
-                  <p className="time">{`posted ${item.feedbackPostedTime}`}</p>
-                  <p>{`${item.comment}`}</p>
+                <div className="each_feedback">
+                  <p className="time">{`Posted ${item.feedbackPostedTime}`}</p>
+                  <p className="comment">{`${item.comment}`}</p>
+                  <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
+                  <p>{`Time it took to pass it: ${item.waitingTime}m`}</p>
+                  <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
+                  <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
+                  <p>{`${
+                    item.quarantineStatus === 'yes'
+                      ? `Quarantine duration: ${item.quarantineDays} days`
+                      : ''
+                  }`}</p>
                 </div>
               );
               // time in hours
             } else if (+finalTime <= 23.5 && +finalTime >= 1) {
               return (
-                <div className="each_comment">
-                  <p className="time">{`posted ${finalTime}h ago`}</p>
-                  <p>{`${item.comment}`}</p>
+                <div className="each_feedback">
+                  <p className="time">{`Posted ${finalTime}h ago`}</p>
+                  <p className="comment">{`${item.comment}`}</p>
+                  <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
+                  <p>{`Time it took to pass it: ${item.waitingTime}m`}</p>
+                  <p>{`Status in the entered country: ${item.passengerPapersStatus.toUpperCase()}`}</p>
+                  <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
+                  <p>{`${
+                    item.quarantineStatus === 'yes'
+                      ? `Quarantine duration: ${item.quarantineDays} days`
+                      : ''
+                  }`}</p>
                 </div>
               );
               // time in minutes
             } else if (elapsedTimeInSeconds > 60) {
-              let timeInMinutes = (endTimeStamp - item.timeStamp) / (1000 * 60);
+              let timeInMinutes: any =
+                (endTimeStamp - item.timeStamp) / (1000 * 60);
               return (
-                <div className="each_comment">
-                  <p className="time">{`posted ${parseFloat(
+                <div className="each_feedback">
+                  <p className="time">{`Posted ${parseFloat(
                     timeInMinutes
                   ).toFixed(0)}m ago`}</p>
-                  <p>{`${item.comment}`}</p>
+                  <p className="comment">{`${item.comment}`}</p>
+                  <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
+                  <p>{`Time it took to pass it: ${item.waitingTime}m`}</p>
+                  <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
+                  <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
+                  <p>{`${
+                    item.quarantineStatus === 'yes'
+                      ? `Quarantine duration: ${item.quarantineDays} days`
+                      : ''
+                  }`}</p>
                 </div>
               );
               // time in seconds
             } else if (elapsedTimeInSeconds < 60) {
               return (
-                <div className="each_comment">
-                  <p>{`${parseFloat(elapsedTimeInSeconds).toFixed(0)}s ago`}</p>
-                  <p>{`${item.comment}`}</p>
+                <div className="each_feedback">
+                  <p>{`Posted ${parseFloat(elapsedTimeInSeconds).toFixed(
+                    0
+                  )}s ago`}</p>
+                  <p className="comment">{`${item.comment}`}</p>
+                  <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
+                  <p>{`Time it took to pass it: ${item.waitingTime}m`}</p>
+                  <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
+                  <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
+                  <p>{`${
+                    item.quarantineStatus === 'yes'
+                      ? `Quarantine duration: ${item.quarantineDays} days`
+                      : ''
+                  }`}</p>
                 </div>
               );
             }
@@ -414,18 +464,6 @@ const ResultSection = styled.section`
   margin-bottom: 2rem;
   padding: 0.5rem;
 
-  h3 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    background: white;
-    color: black;
-    padding: 0.5rem;
-    border-radius: 0.2rem;
-    font-weight: bold;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
   h2 {
     background: white;
     color: black;
@@ -434,15 +472,42 @@ const ResultSection = styled.section`
     font-weight: bold;
   }
 
-  .each_comment {
+  h3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: rgba(52, 211, 153, 0.9);
+    padding: 0.5rem;
+    border: 1px solid rgba(52, 211, 153, 0.9);
+    border-radius: 0.2rem;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .each_feedback {
     margin-top: 0.5rem;
-    border-top: 1px solid #fff;
+    border-top: 1px solid rgba(52, 211, 153, 0.9);
+  }
+
+  .each_feedback p {
+    margin-bottom: 0.2rem;
+    /* color: rgba(52, 211, 153, 0.9); */
+  }
+
+  .comment {
+    margin-top: 1rem;
+    margin-bottom: 1rem !important;
   }
 
   .time {
     text-align: left;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
+  }
+
+  .results_text {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 `;
 

@@ -24,10 +24,37 @@ import {
 } from './actions';
 
 import _ from 'lodash';
+// Check context here if some error
+const AppContext = React.createContext({});
 
-const AppContext = React.createContext();
+type Initial_State = {
+  loading: boolean;
+  currentQuestionDisplayed: number;
+  countryEntered: string;
+  countryFrom: string;
+  passengerPapersStatus: string;
+  zoneColor: string;
+  borderName: string;
+  hadCovid: string;
+  vaccinationStatus: string;
+  vaccineName: string;
+  covidPassport: string;
+  pcrStatus: string;
+  antiGenStatus: string;
+  quarantineStatus: string;
+  quarantineDays: string;
+  waitingTime: string;
+  comment: string;
+  feedbackPostedTime: string;
+  timeStamp: string;
+  showAdditionalQuestion: boolean;
+};
 
-const initialState = {
+type Props = {
+  children: JSX.Element;
+};
+
+const initialState: Initial_State = {
   loading: false,
   currentQuestionDisplayed: 0,
   countryEntered: '',
@@ -50,7 +77,7 @@ const initialState = {
   showAdditionalQuestion: false,
 };
 
-const AppProvider = ({ children }) => {
+const AppProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const sendData = () => {
@@ -66,7 +93,7 @@ const AppProvider = ({ children }) => {
     }, 3000);
   };
 
-  const submitUserFeedbackToDB = async (e) => {
+  const submitUserFeedbackToDB = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const date = new Date();
@@ -89,37 +116,37 @@ const AppProvider = ({ children }) => {
     console.log(state);
   };
 
-  const getCountryEntered = (e) => {
+  const getCountryEntered = (e: { preventDefault: () => void }) => {
     dispatch({ type: GET_COUNTRY_ENTERED, payload: e.target.value });
   };
 
-  const getCountryFrom = (e) => {
+  const getCountryFrom = (e: { preventDefault: () => void }) => {
     dispatch({ type: GET_COUNTRY_FROM, payload: e.target.value });
   };
 
-  const getPassengerPapersStatus = (e) => {
+  const getPassengerPapersStatus = (e: { preventDefault: () => void }) => {
     dispatch({
       type: GET_PASSENGER_PAPERS_STATUS,
       payload: e.target.innerText,
     });
   };
 
-  const getZoneColor = (e) => {
+  const getZoneColor = (e: { preventDefault: () => void }) => {
     if (e) {
       const color = e.toLowerCase();
       dispatch({ type: GET_ZONE_COLOR, payload: color });
     }
   };
 
-  const getBorderName = (borderName) => {
+  const getBorderName = (borderName: string) => {
     dispatch({ type: GET_BORDER_NAME, payload: borderName });
   };
 
-  const getHadCovid = (e) => {
+  const getHadCovid = (e: { preventDefault: () => void }) => {
     dispatch({ type: GET_HAD_COVID, payload: e.target.innerText });
   };
 
-  const getVaccinationStatus = (e) => {
+  const getVaccinationStatus = (e: { preventDefault: () => void }) => {
     dispatch({ type: GET_VACCINATION_STATUS, payload: e.target.innerText });
   };
 
@@ -127,35 +154,35 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_VACCINE_NAME, payload: e.target.innerText });
   };
 
-  const getCovidPassportStatus = (e) => {
+  const getCovidPassportStatus = (e: { preventDefault: () => void }) => {
     dispatch({ type: GET_COVID_PASSPORT_STATUS, payload: e.target.innerText });
   };
 
-  const getPcrStatus = (e) => {
+  const getPcrStatus = (e: { preventDefault: () => void }) => {
     dispatch({ type: GET_PCR_STATUS, payload: e.target.innerText });
   };
 
-  const getAntiGenStatus = (e) => {
+  const getAntiGenStatus = (e: { preventDefault: () => void }) => {
     dispatch({ type: GET_ANTIGEN_STATUS, payload: e.target.innerText });
   };
 
-  const getQuarantineStatus = (e) => {
+  const getQuarantineStatus = (e: { preventDefault: () => void }) => {
     dispatch({ type: GET_QUARANTINE_STATUS, payload: e.target.innerText });
   };
 
-  const getQuarantineDays = (numberOfDays) => {
+  const getQuarantineDays = (numberOfDays: string) => {
     dispatch({ type: GET_QUARANTINE_DAYS, payload: numberOfDays });
   };
 
-  const getWaitingTime = (minutes) => {
+  const getWaitingTime = (minutes: string) => {
     dispatch({ type: GET_WAITING_TIME, payload: minutes });
   };
 
-  const getComment = (text) => {
+  const getComment = (text: string) => {
     dispatch({ type: GET_COMMENT, payload: text });
   };
 
-  const getPreviousQuestion = (currentQuestionNumber) => {
+  const getPreviousQuestion = (currentQuestionNumber: number) => {
     dispatch({ type: GET_PREVIOUS_QUESTION, payload: currentQuestionNumber });
   };
 
