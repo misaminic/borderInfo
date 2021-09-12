@@ -11,7 +11,7 @@ type QuestionAnswer = {
   answer4?: string;
   answer5?: string;
   answer6?: string;
-  stateHandlerFunc: () => void;
+  stateHandlerFunc: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void;
   manyCharacters?: boolean;
   additionalQuestionBtn?: boolean;
   questionTextLong?: boolean;
