@@ -63,7 +63,7 @@ const QuestionAnswer = ({
   );
 };
 
-const Qa = styled.article`
+const Qa = styled.article<any>`
   align-items: center;
   & {
     height: 100%;
