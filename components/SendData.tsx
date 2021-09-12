@@ -3,7 +3,7 @@ import { useGlobalContext } from '../pages/context';
 import { useRouter } from 'next/router';
 
 const SendData = () => {
-  const { sendData } = useGlobalContext();
+  const { sendData }: any = useGlobalContext();
 
   let router = useRouter();
 
