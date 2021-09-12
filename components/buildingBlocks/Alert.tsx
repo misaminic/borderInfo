@@ -12,7 +12,6 @@ const Alert = ({ msg }: Message) => {
     if (msg !== '') {
       const timeout = setTimeout(() => {
         removeAlert();
-        console.log('aaa');
       }, 3000);
       return () => clearTimeout(timeout);
     }

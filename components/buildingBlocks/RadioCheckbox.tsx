@@ -1,7 +1,6 @@
 import React from 'react';
 
 const RadioCheckbox = ({ name, value, handler, item, valueInState }: any) => {
-  console.log('checkbox render');
   return (
     <>
       <input
