@@ -108,20 +108,20 @@ const filterReducer = (state: Initial_State, action: ActionType) => {
         return {
           ...state,
           filtered_items: { ...matches },
-          filters: {
-            countryEntered: '',
-            countryFrom: '',
-            passengerPapersStatus: '',
-            zoneColor: '',
-            borderName: '',
-            hadCovid: '',
-            vaccinationStatus: '',
-            vaccineName: '',
-            covidPassport: '',
-            pcrStatus: '',
-            antiGenStatus: '',
-            feedbackPostedTime: '',
-          },
+          // filters: {
+          //   countryEntered: '',
+          //   countryFrom: '',
+          //   passengerPapersStatus: '',
+          //   zoneColor: '',
+          //   borderName: '',
+          //   hadCovid: '',
+          //   vaccinationStatus: '',
+          //   vaccineName: '',
+          //   covidPassport: '',
+          //   pcrStatus: '',
+          //   antiGenStatus: '',
+          //   feedbackPostedTime: '',
+          // },
         };
       } else {
         return { ...state, filtered_items: false };
