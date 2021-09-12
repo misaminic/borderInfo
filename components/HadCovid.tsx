@@ -4,7 +4,7 @@ import { useGlobalContext } from '../pages/context';
 import BackButton from './buildingBlocks/BackButton';
 
 const HadCovid = () => {
-  const { getHadCovid } = useGlobalContext();
+  const { getHadCovid }: any = useGlobalContext();
 
   return (
     <>

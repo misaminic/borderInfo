@@ -5,10 +5,13 @@ import NextButton from './buildingBlocks/NextButton';
 import AdditionalQuestionBackButton from './AdditionalQuestionBackButton';
 
 const Quarantine = () => {
-  const { getQuarantineStatus, getQuarantineDays, showAdditionalQuestion } =
-    useGlobalContext();
+  const {
+    getQuarantineStatus,
+    getQuarantineDays,
+    showAdditionalQuestion,
+  }: any = useGlobalContext();
 
-  const [days, setDays] = useState(null);
+  const [days, setDays] = useState('');
 
   return (
     <>

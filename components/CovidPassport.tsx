@@ -5,7 +5,7 @@ import BackButton from './buildingBlocks/BackButton';
 import { useGlobalContext } from '../pages/context';
 
 const CovidPassport = () => {
-  const { getCovidPassportStatus } = useGlobalContext();
+  const { getCovidPassportStatus }: any = useGlobalContext();
 
   return (
     <>

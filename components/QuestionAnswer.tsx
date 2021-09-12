@@ -3,6 +3,20 @@ import styled from 'styled-components';
 import BackButton from './buildingBlocks/BackButton';
 import AdditionalQuestionBackButton from './AdditionalQuestionBackButton';
 
+type QuestionAnswer = {
+  question: string;
+  answer1: string;
+  answer2: string;
+  answer3?: string;
+  answer4?: string;
+  answer5?: string;
+  answer6?: string;
+  stateHandlerFunc: () => void;
+  manyCharacters?: boolean;
+  additionalQuestionBtn?: boolean;
+  questionTextLong?: boolean;
+};
+
 const QuestionAnswer = ({
   question,
   answer1,
@@ -15,7 +29,7 @@ const QuestionAnswer = ({
   manyCharacters,
   additionalQuestionBtn,
   questionTextLong,
-}) => {
+}: QuestionAnswer) => {
   return (
     <Qa manyCharacters={manyCharacters} questionTextLong={questionTextLong}>
       <h3 className={'mb-10 question_answer_headline'}>{question}</h3>
@@ -60,7 +74,7 @@ const Qa = styled.article`
     color: var(--secondary_color);
   }
   h3 {
-    padding: ${(props) => (props.questionTextLong ? '1rem' : '0')};
+    padding: ${(props: any) => (props.questionTextLong ? '1rem' : '0')};
   }
   ul {
     display: flex;
@@ -73,7 +87,8 @@ const Qa = styled.article`
     font-size: 1.3rem;
     font-weight: bold;
     background: #fff;
-    padding: ${(props) => (props.manyCharacters ? '1rem' : '0.6rem 1.8rem')};
+    padding: ${(props: any) =>
+      props.manyCharacters ? '1rem' : '0.6rem 1.8rem'};
     margin-bottom: 1.8rem;
     cursor: pointer;
     color: var(--primary_color);

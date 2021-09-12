@@ -11,7 +11,7 @@ const FromCountry = () => {
     countryEntered,
     getPreviousQuestion,
     currentQuestionDisplayed,
-  } = useGlobalContext();
+  }: any = useGlobalContext();
 
   // getting the list of countries without the one the user entered.
   const ListOfCountriesWithoutTheEnteringOne = countries.filter((country) => {

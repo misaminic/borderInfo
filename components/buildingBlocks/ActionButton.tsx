@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ActionButton = ({ handler, text }) => {
+const ActionButton = ({ handler, text }: any) => {
   return (
     <Button
       type="button"
@@ -27,8 +27,8 @@ const Button = styled.button`
   transition: all 0.3s cubic-bezier(0.67, 0.17, 0.4, 0.83);
 
   /* &:hover {
-    background: ${(props) => (props.toggleHover ? '#fff' : '#000')};
-    color: ${(props) => (props.toggleHover ? '#000' : '#fff')};
+    background: ${(props: any) => (props.toggleHover ? '#fff' : '#000')};
+    color: ${(props: any) => (props.toggleHover ? '#000' : '#fff')};
   } */
 `;
 

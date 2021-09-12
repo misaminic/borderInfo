@@ -3,7 +3,8 @@ import { useGlobalContext } from '../../pages/context';
 import styled from 'styled-components';
 
 const BackButton = () => {
-  const { getPreviousQuestion, currentQuestionDisplayed } = useGlobalContext();
+  const { getPreviousQuestion, currentQuestionDisplayed }: any =
+    useGlobalContext();
 
   return (
     <Button

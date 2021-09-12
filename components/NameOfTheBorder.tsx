@@ -4,7 +4,7 @@ import BackButton from './buildingBlocks/BackButton';
 import NextButton from './buildingBlocks/NextButton';
 
 const NameOfTheBorder = () => {
-  const { getBorderName } = useGlobalContext();
+  const { getBorderName }: any = useGlobalContext();
   const [borderName, setBorderName] = useState('');
 
   return (

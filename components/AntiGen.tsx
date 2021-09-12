@@ -3,7 +3,7 @@ import QuestionAnswer from './QuestionAnswer';
 import { useGlobalContext } from '../pages/context';
 
 const AntiGen = () => {
-  const { getAntiGenStatus } = useGlobalContext();
+  const { getAntiGenStatus }: any = useGlobalContext();
 
   return (
     <QuestionAnswer

@@ -4,10 +4,10 @@ import NextButton from './buildingBlocks/NextButton';
 import BackButton from './buildingBlocks/BackButton';
 
 const WaitingTIme = () => {
-  const { getWaitingTime } = useGlobalContext();
+  // const { getWaitingTime } = useGlobalContext();
   let minutes = useRef(0);
 
-  const [waitingTime, setWaitingTime] = useState(null);
+  const [waitingTime, setWaitingTime] = useState();
   // useEffect(() => {
   //   if (minutes.current.value) {
   //     console.log(minutes.current.value);

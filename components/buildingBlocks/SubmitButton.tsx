@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SubmitButton = ({ handler }) => {
+const SubmitButton = ({ handler }: any) => {
   const [submitBtn, setSubmitBtn] = useState(false);
 
   const tickMark = (
@@ -13,7 +13,7 @@ const SubmitButton = ({ handler }) => {
     >
       <path
         fill="#fff"
-        fill-rule="nonzero"
+        fillRule="nonzero"
         d="M19.11 44.64L.27 25.81l5.66-5.66 13.18 13.18L52.07.38l5.65 5.65"
       />
     </svg>

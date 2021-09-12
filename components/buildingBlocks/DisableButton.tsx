@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DisableButton = ({ handler }) => {
+const DisableButton = ({ handler }: any) => {
   return (
     <button type="button" className="button" onClick={handler}>
       SEARCH

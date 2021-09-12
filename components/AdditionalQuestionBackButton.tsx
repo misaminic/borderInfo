@@ -3,7 +3,7 @@ import { useGlobalContext } from '../pages/context';
 import styled from 'styled-components';
 
 const AdditionalQuestionBackButton = () => {
-  const { showRightQuestion } = useGlobalContext();
+  const { showRightQuestion }: any = useGlobalContext();
 
   return (
     <Button type="button" onClick={() => showRightQuestion()}>

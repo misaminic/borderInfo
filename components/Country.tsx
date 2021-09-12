@@ -7,13 +7,13 @@ import countries from './../pages/AllCountriesNames.json';
 import SelectElement from './buildingBlocks/SelectElement';
 import BackButton from './buildingBlocks/BackButton';
 
-const CountryEntered = (data) => {
+const CountryEntered = () => {
   const {
     getCountryEntered,
     getPreviousQuestion,
     currentQuestionDisplayed,
     countryEntered,
-  } = useGlobalContext();
+  }: any = useGlobalContext();
 
   return (
     <>

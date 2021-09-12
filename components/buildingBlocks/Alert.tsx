@@ -1,8 +1,12 @@
 import React, { useEffect, useCallback } from 'react';
 import { useFilterContext } from '../../pages/filterContext';
 
-const Alert = ({ msg }) => {
-  const { showAlert: removeAlert } = useFilterContext();
+type Message = {
+  msg: string;
+};
+
+const Alert = ({ msg }: Message) => {
+  const { showAlert: removeAlert }: any = useFilterContext();
 
   useEffect(() => {
     if (msg !== '') {

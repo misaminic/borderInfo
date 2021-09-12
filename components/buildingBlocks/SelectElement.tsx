@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useFilterContext } from '../../pages/filterContext';
 
-const SelectElement = ({ name, value, handler, itemsData }) => {
+type Item = {
+  name: string;
+};
+
+type ChoosenCountry = {
+  toUpperCase: any;
+};
+
+const SelectElement = ({ name, value, handler, itemsData }: any) => {
   const {
     filters: { countryEntered, countryFrom },
-  } = useFilterContext();
+  }: any = useFilterContext();
 
   // stores all the filtered countries
   const [items, setItems] = useState([]);
 
   // getting entered country off the list of countries
+
   useEffect(() => {
     const checkedData = () =>
-      itemsData.filter((item) => {
+      itemsData.filter((item: Item) => {
         if (name === 'countryEntered' && countryFrom)
           return item.name !== countryFrom;
         else if (name === 'countryFrom' && countryEntered) {
@@ -35,7 +44,7 @@ const SelectElement = ({ name, value, handler, itemsData }) => {
           </option>
           {items
             ? items.map((item, index) => {
-                const { name } = item;
+                const { name }: Item = item;
                 return (
                   <option key={index} value={name}>
                     {itemsData.length > 100 ? name : name.toUpperCase()}

@@ -3,8 +3,21 @@ import { useGlobalContext } from '../../pages/context';
 import styled from 'styled-components';
 import _ from 'lodash';
 
-const NextButton = ({ borderName, quarantineDays, waitingTime }) => {
-  const { getBorderName, getQuarantineDays, getWaitingTime } =
+type Props = {
+  borderName?: string;
+  quarantineDays?: string;
+  waitingTime?: string;
+  children?: string;
+};
+
+// type FuncsFromContext = {
+//   getBorderName: (name: string) => void;
+//   getQuarantineDays: (days: number) => void;
+//   getWaitingTime: (time: number) => void;
+// };
+
+const NextButton = ({ borderName, quarantineDays, waitingTime }: Props) => {
+  const { getBorderName, getQuarantineDays, getWaitingTime }: any =
     useGlobalContext();
 
   return (
