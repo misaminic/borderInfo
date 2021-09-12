@@ -7,7 +7,7 @@ const WaitingTIme = () => {
   // const { getWaitingTime } = useGlobalContext();
   let minutes = useRef(0);
 
-  const [waitingTime, setWaitingTime] = useState();
+  const [waitingTime, setWaitingTime] = useState('');
   // useEffect(() => {
   //   if (minutes.current.value) {
   //     console.log(minutes.current.value);
