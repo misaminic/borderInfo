@@ -106,7 +106,7 @@ export const FilterProvider = ({ children }: Props) => {
     let name = e.target.name;
     let value = e.target.value;
     let checked = e.target.checked;
-    let inputType = e.target.attributes.type?.value;
+    let inputType = e.target.localName;
 
     dispatch({ type: GET_ALL_ITEMS, payload: allItems });
 

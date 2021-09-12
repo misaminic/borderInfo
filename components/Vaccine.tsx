@@ -11,7 +11,7 @@ const Vaccine = () => {
     getVaccineName,
     vaccinationStatus,
     showAdditionalQuestion,
-  } = useGlobalContext();
+  }: any = useGlobalContext();
 
   return (
     <Questions>

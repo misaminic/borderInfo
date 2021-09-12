@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, useReducer } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useReducer,
+  ChangeEventHandler,
+} from 'react';
 import reducer from './reducer';
 import { useRouter } from 'next/router';
 import {
@@ -78,7 +84,10 @@ const initialState: Initial_State = {
 };
 
 const AppProvider = ({ children }: Props) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch]: [any, React.Dispatch<any>] = useReducer(
+    reducer,
+    initialState
+  );
 
   const sendData = () => {
     fetch('/api/feedback', {
@@ -116,22 +125,22 @@ const AppProvider = ({ children }: Props) => {
     console.log(state);
   };
 
-  const getCountryEntered = (e: { preventDefault: () => void }) => {
+  const getCountryEntered = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: GET_COUNTRY_ENTERED, payload: e.target.value });
   };
 
-  const getCountryFrom = (e: { preventDefault: () => void }) => {
+  const getCountryFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: GET_COUNTRY_FROM, payload: e.target.value });
   };
 
-  const getPassengerPapersStatus = (e: { preventDefault: () => void }) => {
+  const getPassengerPapersStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: GET_PASSENGER_PAPERS_STATUS,
       payload: e.target.innerText,
     });
   };
 
-  const getZoneColor = (e: { preventDefault: () => void }) => {
+  const getZoneColor = (e: string) => {
     if (e) {
       const color = e.toLowerCase();
       dispatch({ type: GET_ZONE_COLOR, payload: color });
@@ -142,31 +151,31 @@ const AppProvider = ({ children }: Props) => {
     dispatch({ type: GET_BORDER_NAME, payload: borderName });
   };
 
-  const getHadCovid = (e: { preventDefault: () => void }) => {
+  const getHadCovid = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: GET_HAD_COVID, payload: e.target.innerText });
   };
 
-  const getVaccinationStatus = (e: { preventDefault: () => void }) => {
+  const getVaccinationStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: GET_VACCINATION_STATUS, payload: e.target.innerText });
   };
 
-  const getVaccineName = (e) => {
+  const getVaccineName = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: GET_VACCINE_NAME, payload: e.target.innerText });
   };
 
-  const getCovidPassportStatus = (e: { preventDefault: () => void }) => {
+  const getCovidPassportStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: GET_COVID_PASSPORT_STATUS, payload: e.target.innerText });
   };
 
-  const getPcrStatus = (e: { preventDefault: () => void }) => {
+  const getPcrStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: GET_PCR_STATUS, payload: e.target.innerText });
   };
 
-  const getAntiGenStatus = (e: { preventDefault: () => void }) => {
+  const getAntiGenStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: GET_ANTIGEN_STATUS, payload: e.target.innerText });
   };
 
-  const getQuarantineStatus = (e: { preventDefault: () => void }) => {
+  const getQuarantineStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ type: GET_QUARANTINE_STATUS, payload: e.target.innerText });
   };
 

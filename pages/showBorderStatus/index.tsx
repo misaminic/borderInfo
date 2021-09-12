@@ -9,6 +9,10 @@ import Alert from '../../components/buildingBlocks/Alert';
 import ActionButton from '../../components/buildingBlocks/ActionButton';
 import SelectElement from '../../components/buildingBlocks/SelectElement';
 
+type ResultSection = {
+  current: any;
+};
+
 const ShowBorderStatus = () => {
   const [results, setResults] = useState([]);
 
@@ -32,7 +36,7 @@ const ShowBorderStatus = () => {
     filterResults,
   }: any = useFilterContext();
 
-  const results_section = useRef(null);
+  const results_section = useRef<any | undefined>(null);
 
   // Displaying results values
   const numberOfHits = _.size(results);
@@ -452,7 +456,7 @@ const ShowBorderStatus = () => {
   );
 };
 
-const ShowStatusSections = styled.section`
+const ShowStatusSections = styled.section<any>`
   display: flex;
   flex-direction: column;
   place-self: center;
@@ -539,7 +543,7 @@ const QuestionHeadline = styled.div`
   }
 `;
 
-const LabelForQuestionsWithSelect = styled.label`
+const LabelForQuestionsWithSelect = styled.label<any>`
   display: flex;
   justify-content: center;
   text-transform: uppercase;

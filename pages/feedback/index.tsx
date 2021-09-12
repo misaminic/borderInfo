@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CountryEntered from '../../components/Country';
 import FromCountry from '../../components/FromCountry';
 import { useGlobalContext } from '../context';
-import ZoneColor from '../../components/ZoneColor';
+// import ZoneColor from '../../components/ZoneColor';
 import NameOfTheBorder from '../../components/NameOfTheBorder';
 import PassengerPapersStatus from '../../components/PassengerPapersStatus';
 import Vaccine from '../../components/Vaccine';
@@ -34,7 +34,7 @@ const Feedback = () => {
     zoneColor,
     covidPassport,
     currentQuestionDisplayed,
-  } = useGlobalContext();
+  }: any = useGlobalContext();
 
   return (
     <>

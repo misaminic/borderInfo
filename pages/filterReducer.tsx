@@ -37,7 +37,7 @@ const filterReducer = (state: Initial_State, action: ActionType) => {
   if (action.type === UPDATE_FILTERS) {
     const { name, value, checked, inputType } = action.payload;
 
-    if (checked === false && inputType === 'checkbox') {
+    if (checked === false && inputType === 'input') {
       return {
         ...state,
         filters: {
