@@ -26,3 +26,5 @@
 //     res.status(404).send(error);
 //   }
 // }
+
+export {};
