@@ -3,7 +3,7 @@ import { useGlobalContext } from '../pages/context';
 import SubmitButton from './buildingBlocks/SubmitButton';
 
 const Submit = () => {
-  const { getComment, submitUserFeedbackToDB } = useGlobalContext();
+  const { getComment, submitUserFeedbackToDB }: any = useGlobalContext();
 
   const [textareaValue, setTextareaValue] = useState('');
 
@@ -23,8 +23,8 @@ const Submit = () => {
         className="text-black rounded p-2"
         name="comment"
         id="textarea_submit"
-        cols="32"
-        rows="6"
+        cols={32}
+        rows={6}
         value={textareaValue}
         onChange={(e) => setTextareaValue(e.target.value)}
       ></textarea>
