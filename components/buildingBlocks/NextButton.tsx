@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useGlobalContext } from '../../pages/context';
+import { useGlobalContext } from '../../context';
 import styled from 'styled-components';
 import _ from 'lodash';
 
