@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useGlobalContext } from '../pages/context';
+import { useGlobalContext } from '../context';
 import { useRouter } from 'next/router';
 
 const SendData = () => {

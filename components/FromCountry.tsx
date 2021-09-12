@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useGlobalContext } from '../pages/context';
+import { useGlobalContext } from '../context';
 import countries from './../pages/AllCountriesNames.json';
 import SelectElement from './buildingBlocks/SelectElement';
 import BackButton from './buildingBlocks/BackButton';

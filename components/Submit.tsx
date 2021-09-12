@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useGlobalContext } from '../pages/context';
+import { useGlobalContext } from '../context';
 import SubmitButton from './buildingBlocks/SubmitButton';
 
 const Submit = () => {

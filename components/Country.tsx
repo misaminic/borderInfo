@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useGlobalContext } from '../pages/context';
+import { useGlobalContext } from '../context';
 import Link from 'next/link';
 import countries from './../pages/AllCountriesNames.json';
 import SelectElement from './buildingBlocks/SelectElement';

@@ -7,10 +7,10 @@ import React, {
   ChangeEventHandler,
   ChangeEvent,
 } from 'react';
-import reducer from './filterReducer';
+import reducer from './pages/filterReducer';
 import { GET_ALL_ITEMS, UPDATE_FILTERS, FILTER_RESULTS } from './actions';
-import CovidPassport from '../components/CovidPassport';
-import CountryEntered from '../components/Country';
+import CovidPassport from './components/CovidPassport';
+import CountryEntered from './components/Country';
 
 type Props = {
   children: JSX.Element;

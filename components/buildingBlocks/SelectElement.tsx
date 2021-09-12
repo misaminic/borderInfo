@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useFilterContext } from '../../pages/filterContext';
+import { useFilterContext } from '../../filterContext';
 
 type Item = {
   name: string;

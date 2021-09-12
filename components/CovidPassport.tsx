@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import QuestionAnswer from './QuestionAnswer';
 import BackButton from './buildingBlocks/BackButton';
-import { useGlobalContext } from '../pages/context';
+import { useGlobalContext } from '../context';
 
 const CovidPassport = () => {
   const { getCovidPassportStatus }: any = useGlobalContext();

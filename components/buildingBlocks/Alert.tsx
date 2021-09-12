@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { useFilterContext } from '../../pages/filterContext';
+import { useFilterContext } from '../../filterContext';
 
 type Message = {
   msg: string;

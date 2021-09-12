@@ -1,6 +1,6 @@
 import React from 'react';
 import QuestionAnswer from './QuestionAnswer';
-import { useGlobalContext } from '../pages/context';
+import { useGlobalContext } from '../context';
 
 const Pcr = () => {
   const { getPcrStatus }: any = useGlobalContext();

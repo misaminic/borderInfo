@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import QuestionAnswer from './QuestionAnswer';
-import { useGlobalContext } from '../pages/context';
+import { useGlobalContext } from '../context';
 import NextButton from './buildingBlocks/NextButton';
 import AdditionalQuestionBackButton from './AdditionalQuestionBackButton';
 

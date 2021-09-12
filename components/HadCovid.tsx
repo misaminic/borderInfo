@@ -1,6 +1,6 @@
 import React from 'react';
 import QuestionAnswer from './QuestionAnswer';
-import { useGlobalContext } from '../pages/context';
+import { useGlobalContext } from '../context';
 import BackButton from './buildingBlocks/BackButton';
 
 const HadCovid = () => {
