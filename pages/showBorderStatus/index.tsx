@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTransition, useSpring, animated } from 'react-spring';
-import countries from '../AllCountriesNames.json';
+import countries from '../../AllCountriesNames.json';
 import { useFilterContext } from '../../filterContext';
 import styled from 'styled-components';
 import _ from 'lodash';

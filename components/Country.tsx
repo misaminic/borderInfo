@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useGlobalContext } from '../context';
 import Link from 'next/link';
-import countries from './../pages/AllCountriesNames.json';
+import countries from '../AllCountriesNames.json';
 import SelectElement from './buildingBlocks/SelectElement';
 import BackButton from './buildingBlocks/BackButton';
 
