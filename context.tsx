@@ -5,7 +5,7 @@ import React, {
   useReducer,
   ChangeEventHandler,
 } from 'react';
-import reducer from './pages/reducer';
+import reducer from './reducer';
 import { useRouter } from 'next/router';
 import {
   SUBMIT_USER_FEED_BACK_TO_DB,

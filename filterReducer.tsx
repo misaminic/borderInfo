@@ -1,6 +1,6 @@
-import { GET_ALL_ITEMS, UPDATE_FILTERS, FILTER_RESULTS } from '../actions';
+import { GET_ALL_ITEMS, UPDATE_FILTERS, FILTER_RESULTS } from './actions';
 import _ from 'lodash';
-import CovidPassport from '../components/CovidPassport';
+import CovidPassport from './components/CovidPassport';
 
 type ActionType = {
   type: 'GET_ALL_ITEMS' | 'UPDATE_FILTERS' | 'FILTER_RESULTS';

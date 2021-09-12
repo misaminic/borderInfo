@@ -18,7 +18,7 @@ import {
   GET_PREVIOUS_QUESTION,
   SHOW_RIGHT_QUESTION,
   FEEDBACK_SUBMITING_FINISHED,
-} from '../actions';
+} from './actions';
 
 import _ from 'lodash';
 

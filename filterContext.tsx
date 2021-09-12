@@ -7,7 +7,7 @@ import React, {
   ChangeEventHandler,
   ChangeEvent,
 } from 'react';
-import reducer from './pages/filterReducer';
+import reducer from './filterReducer';
 import { GET_ALL_ITEMS, UPDATE_FILTERS, FILTER_RESULTS } from './actions';
 import CovidPassport from './components/CovidPassport';
 import CountryEntered from './components/Country';
