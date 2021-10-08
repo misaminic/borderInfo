@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { animated, useTransition, config } from 'react-spring';
 
-const FaqQuestion = ({ question, answer }) => {
+const FaqQuestion = ({ question, answer }: any) => {
   const [showAnswer, setShowAnswer] = useState(false);
 
   const handleClick = () => {
