@@ -48,16 +48,6 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <style jsx global>{`
-            /* Other global styles such as 'html, body' etc... */
-
-            #__next {
-              min-height: calc(100vh - 4rem);
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-            }
-          `}</style>
         </body>
       </Html>
     );
