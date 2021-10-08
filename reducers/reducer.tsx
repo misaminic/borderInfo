@@ -23,7 +23,53 @@ import {
 
 import _ from 'lodash';
 
-const reducer = (state, action) => {
+type ActionType = {
+  type:
+    | 'SUBMIT_USER_FEED_BACK_TO_DB'
+    | 'GET_COUNTRY_ENTERED'
+    | 'GET_COUNTRY_FROM'
+    | 'GET_PASSENGER_PAPERS_STATUS'
+    | 'GET_BORDER_NAME'
+    | 'GET_HAD_COVID'
+    | 'GET_VACCINATION_STATUS'
+    | 'GET_VACCINE_NAME'
+    | 'GET_COVID_PASSPORT_STATUS'
+    | 'GET_PCR_STATUS'
+    | 'GET_ANTIGEN_STATUS'
+    | 'GET_QUARANTINE_STATUS'
+    | 'GET_QUARANTINE_DAYS'
+    | 'GET_WAITING_TIME'
+    | 'GET_COMMENT'
+    | 'GET_PREVIOUS_QUESTION'
+    | 'SHOW_RIGHT_QUESTION'
+    | 'CHANGE_TO_THE_NEXT_QUESTION'
+    | 'FEEDBACK_SUBMITING_FINISHED';
+  payload: any;
+};
+type Initial_State = {
+  loading: boolean;
+  currentQuestionDisplayed: number;
+  countryEntered: string;
+  countryFrom: string;
+  passengerPapersStatus: string;
+  zoneColor: string;
+  borderName: string;
+  hadCovid: string;
+  vaccinationStatus: string;
+  vaccineName: string;
+  covidPassport: string;
+  pcrStatus: string;
+  antiGenStatus: string;
+  quarantineStatus: string;
+  quarantineDays: string;
+  waitingTime: string;
+  comment: string;
+  feedbackPostedTime: string;
+  timeStamp: string;
+  showAdditionalQuestion: boolean;
+};
+
+const reducer = (state: Initial_State, action: ActionType) => {
   if (action.type === CHANGE_TO_THE_NEXT_QUESTION) {
     return {
       ...state,
