@@ -1,34 +1,42 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useGlobalContext } from '../context';
+import { useGlobalContext } from '../contexts/context';
 import NextButton from './buildingBlocks/NextButton';
 import BackButton from './buildingBlocks/BackButton';
+import styled from 'styled-components';
+import { animated } from '@react-spring/web';
+import { usePageAnimation } from '../styles/animations/pagesTranstions';
 
-const WaitingTIme = () => {
-  // const { getWaitingTime } = useGlobalContext();
+const WaitingTime = () => {
   let minutes = useRef(0);
 
   const [waitingTime, setWaitingTime] = useState('');
-  // useEffect(() => {
-  //   if (minutes.current.value) {
-  //     console.log(minutes.current.value);
-  //   }
-  // }, [minutes.current.value]);
+  const { customAnimation }: any = usePageAnimation();
 
   return (
     <>
-      <h3 className="text-2xl p-8 text-center waiting_time">
-        How long it took you to cross the border?
-      </h3>
-      <input
-        className="rounded"
-        type="number"
-        value={waitingTime}
-        onChange={(e) => setWaitingTime(e.target.value)}
-      />
-      <NextButton waitingTime={waitingTime}>NEXT</NextButton>
-      <BackButton />
+      {customAnimation((style: any, isAnimated: boolean) =>
+        isAnimated ? (
+          <animated.article
+            className="flex flex-col place-items-center"
+            style={style}
+          >
+            <h3 className="text-2xl p-8 text-center waiting_time mt-8">
+              How long it took you to cross the border?
+            </h3>
+            <input
+              className="rounded waiting_time_input"
+              type="number"
+              value={waitingTime}
+              placeholder="minutes"
+              onChange={(e) => setWaitingTime(e.target.value)}
+            />
+            <NextButton waitingTime={waitingTime}>NEXT</NextButton>
+            <BackButton />
+          </animated.article>
+        ) : null
+      )}
     </>
   );
 };
 
-export default WaitingTIme;
+export default WaitingTime;

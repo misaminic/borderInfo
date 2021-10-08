@@ -1,12 +1,5 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  useReducer,
-  ChangeEventHandler,
-} from 'react';
-import reducer from './reducer';
-import { useRouter } from 'next/router';
+import React, { useState, useContext, useReducer, useCallback } from 'react';
+import reducer from '../reducers/reducer';
 import {
   SUBMIT_USER_FEED_BACK_TO_DB,
   GET_COUNTRY_ENTERED,
@@ -27,7 +20,8 @@ import {
   GET_PREVIOUS_QUESTION,
   SHOW_RIGHT_QUESTION,
   FEEDBACK_SUBMITING_FINISHED,
-} from './actions';
+  CHANGE_TO_THE_NEXT_QUESTION,
+} from '../actions/actions';
 
 import _ from 'lodash';
 // Check context here if some error
@@ -89,6 +83,30 @@ const AppProvider = ({ children }: Props) => {
     initialState
   );
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarMenuIconVisible, setIsSidebarMenuIconVisible] =
+    useState(true);
+  const [isAnimated, setIsAnimate] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const toggleSidebarMenuIconVisibility = (value: boolean) => {
+    setIsSidebarMenuIconVisible(value);
+  };
+
+  // detecting window size in order to make posting feedback sections responsive
+  // if a user needs to input some value, the keyobard shows up and then layout must be fixed
+  // the function below is a part of the fix
+  const handleResize = () => {
+    if (window.innerHeight < 500) {
+      toggleSidebarMenuIconVisibility(false);
+    } else {
+      toggleSidebarMenuIconVisibility(true);
+    }
+  };
+
   const sendData = () => {
     fetch('/api/feedback', {
       method: 'POST',
@@ -121,16 +139,43 @@ const AppProvider = ({ children }: Props) => {
         payload: { postedTime, timeStamp },
       });
     }, 2000);
-
-    console.log(state);
   };
 
-  const getCountryEntered = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: GET_COUNTRY_ENTERED, payload: e.target.value });
+  const [alert, setAlert] = useState({ show: false, msg: '' });
+
+  const showAlertFromFeedback = useCallback(
+    (show: boolean = false, msg: string = '') => {
+      setAlert({ show, msg });
+    },
+    []
+  );
+
+  const changeToTheNextQuestion = (nextQuestion: {
+    propertyToCheck: string;
+    sectionNumber: number;
+  }) => {
+    const { propertyToCheck, sectionNumber } = nextQuestion;
+    if (!state[propertyToCheck]) {
+      showAlertFromFeedback(true, 'Please choose a country');
+    } else {
+      setIsAnimate(true);
+      dispatch({
+        type: CHANGE_TO_THE_NEXT_QUESTION,
+        payload: sectionNumber,
+      });
+    }
   };
 
-  const getCountryFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: GET_COUNTRY_FROM, payload: e.target.value });
+  const getCountryEntered = (valueEntered: {
+    value: string;
+    label: string;
+  }) => {
+    console.log(valueEntered, 'context');
+    dispatch({ type: GET_COUNTRY_ENTERED, payload: valueEntered });
+  };
+
+  const getCountryFrom = (valueEntered: { value: string; label: string }) => {
+    dispatch({ type: GET_COUNTRY_FROM, payload: valueEntered.value });
   };
 
   const getPassengerPapersStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -184,7 +229,11 @@ const AppProvider = ({ children }: Props) => {
   };
 
   const getWaitingTime = (minutes: string) => {
-    dispatch({ type: GET_WAITING_TIME, payload: minutes });
+    if (+minutes > 360) {
+      dispatch({ type: GET_WAITING_TIME, payload: 'longer than 6 hours' });
+    } else {
+      dispatch({ type: GET_WAITING_TIME, payload: minutes });
+    }
   };
 
   const getComment = (text: string) => {
@@ -204,6 +253,12 @@ const AppProvider = ({ children }: Props) => {
     <AppContext.Provider
       value={{
         ...state,
+        isSidebarOpen,
+        isSidebarMenuIconVisible,
+        isAnimated,
+        toggleSidebarMenuIconVisibility,
+        toggleSidebar,
+        handleResize,
         getCountryEntered,
         getCountryFrom,
         getZoneColor,
@@ -223,6 +278,9 @@ const AppProvider = ({ children }: Props) => {
         sendData,
         getPreviousQuestion,
         showRightQuestion,
+        changeToTheNextQuestion,
+        showAlertFromFeedback,
+        alert,
       }}
     >
       {children}

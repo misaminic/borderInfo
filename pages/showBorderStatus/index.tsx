@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTransition, useSpring, animated } from 'react-spring';
-import countries from '../../AllCountriesNames.json';
-import { useFilterContext } from '../../filterContext';
+import { listOfCountries } from '../../utils/utils';
+import { useFilterContext } from '../../contexts/filterContext';
 import styled from 'styled-components';
 import _ from 'lodash';
 import RadioCheckbox from '../../components/buildingBlocks/RadioCheckbox';
 import Alert from '../../components/buildingBlocks/Alert';
 import ActionButton from '../../components/buildingBlocks/ActionButton';
-import SelectElement from '../../components/buildingBlocks/SelectElement';
+import SearchSelectElement from '../../components/buildingBlocks/SearchSelectElement';
+import { CgArrowsExchangeAltV } from 'react-icons/cg';
 
 type ResultSection = {
   current: any;
@@ -15,6 +16,7 @@ type ResultSection = {
 
 const ShowBorderStatus = () => {
   const [results, setResults] = useState([]);
+  const [render, setRender] = useState(false);
 
   const {
     filters: {
@@ -33,7 +35,9 @@ const ShowBorderStatus = () => {
     alert,
     filtered_items,
     updateFilters,
+    countriesSwapPlaces,
     filterResults,
+    resultsVisibility,
   }: any = useFilterContext();
 
   const results_section = useRef<any | undefined>(null);
@@ -47,11 +51,18 @@ const ShowBorderStatus = () => {
     setResults(filtered_items);
   }, [filtered_items]);
 
+  // useEffect(() => {
+  //   setRender(!render);
+  // });
+
   useEffect(() => {
-    if (results_section.current && numberOfHits > 0) {
+    if (
+      (results_section.current && numberOfHits > 0) ||
+      (numberOfHits === 0 && filtered_items === false)
+    ) {
       results_section.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [numberOfHits]);
+  }, [filtered_items, numberOfHits, resultsVisibility]);
 
   const transition = useTransition(vaccinationStatus, {
     loop: false,
@@ -65,38 +76,63 @@ const ShowBorderStatus = () => {
     enter: { y: 0, opacity: 1 },
   });
 
+  console.log(countryEntered);
+
   return (
-    <div className="w-screen flex flex-col items-center justify-center mt-10 px-3">
+    <div className=" show_border w-screen flex flex-col items-center justify-center mt-24 px-3">
       <h1 className="text-center mb-8 text-lg font-bold">
         SET YOUR ROUTE AND STATUS
       </h1>
-      <ShowStatusSections no_mt={true}>
+      <ShowStatusSections no_mt={true} className="countryEntered">
         <LabelForQuestionsWithSelect htmlFor="countryEntered">
           TRAVELLING TO
         </LabelForQuestionsWithSelect>
-        <SelectElement
+        {/* <CustomSelect
           name={'countryEntered'}
           value={countryEntered}
+          placeholder={countryEntered ? countryEntered : 'Choose a country'}
           handler={updateFilters}
-          itemsData={countries}
+          options={listOfCountries}
+        /> */}
+
+        <SearchSelectElement
+          handler={updateFilters}
+          name={'countryEntered'}
+          value={countryEntered}
+          placeholder={countryEntered ? countryEntered : 'Choose a country'}
+          options={listOfCountries}
         />
-        {/* <QuestionsWithSelect>
-          
-        </QuestionsWithSelect> */}
       </ShowStatusSections>
-      <ShowStatusSections>
+      <div className="switch_country_button">
+        <button
+          className="flex max-w-max max-h-max mt-10 mb-6 bg-transparent md:hover:text-green-500"
+          type="button"
+          onClick={countriesSwapPlaces}
+        >
+          <CgArrowsExchangeAltV className="text-4xl" />
+        </button>
+      </div>
+
+      <ShowStatusSections no_mt={true} className="countryFrom">
         <LabelForQuestionsWithSelect htmlFor="countryFrom">
           TRAVELLING FROM
         </LabelForQuestionsWithSelect>
-        <SelectElement
+
+        {/* <CustomSelect
           name={'countryFrom'}
           value={countryFrom}
+          placeholder={countryFrom ? countryFrom : 'Choose a country'}
           handler={updateFilters}
-          itemsData={countries}
+          options={listOfCountries}
+        /> */}
+
+        <SearchSelectElement
+          handler={updateFilters}
+          name={'countryFrom'}
+          value={countryFrom}
+          placeholder={countryFrom ? countryFrom : 'Choose a country'}
+          options={listOfCountries}
         />
-        {/* <QuestionsWithSelect>
-         
-        </QuestionsWithSelect> */}
       </ShowStatusSections>
       {/* <ShowStatusSections>
         <div className="search_input">
@@ -129,14 +165,28 @@ const ShowBorderStatus = () => {
           </label>
         </div>
       </ShowStatusSections> */}
-      <ShowStatusSections>
+      <ShowStatusSections className="passenger_status">
         <LabelForQuestionsWithSelect
           htmlFor="passengerPapersStatus"
           longText={true}
         >
           STATUS IN THE COUNTRY YOU ARE TRAVELLING TO
         </LabelForQuestionsWithSelect>
-        <SelectElement
+
+        <SearchSelectElement
+          name={'passengerPapersStatus'}
+          value={passengerPapersStatus}
+          handler={updateFilters}
+          options={[
+            { value: 'tourist', label: 'TOURIST' },
+            { value: 'citizen', label: 'CITIZEN' },
+            { value: 'permanent resident', label: 'PERMANENT RESIDENT' },
+            { value: 'temporary resident', label: 'TEMPORARY RESIDENT' },
+          ]}
+          placeholder={'Choose status'}
+        />
+
+        {/* <SelectElement
           name={'passengerPapersStatus'}
           value={passengerPapersStatus}
           handler={updateFilters}
@@ -146,40 +196,10 @@ const ShowBorderStatus = () => {
             { name: 'permanent residency' },
             { name: 'temporary residency' },
           ]}
-        />
-        {/* <QuestionsWithSelect>
-          <select
-            name="passengerPapersStatus"
-            value={passengerPapersStatus}
-            onChange={updateFilters}
-            required
-          >
-            <option value="">
-              {passengerPapersStatus
-                ? passengerPapersStatus
-                : 'CHOOSE A STATUS'}
-            </option>
-            <option value="tourist">TOURIST</option>
-            <option value="citizen">CITIZEN</option>
-            <option value="permanent residency">PERMANENT RESIDENCY</option>
-            <option value="temporary residency">TEMPORARY RESIDENCY</option>
-          </select>
-        </QuestionsWithSelect> */}
+        /> */}
       </ShowStatusSections>
-      {/* <ShowStatusSections>
-        <div className="search_input">
-          <label className="label" htmlFor="borderName">
-            BORDER NAME:
-            <input
-              type="text"
-              name="borderName"
-              value={borderName}
-              onChange={updateFilters}
-            />
-          </label>
-        </div>
-      </ShowStatusSections> */}
-      <ShowStatusSections>
+
+      <ShowStatusSections className="had_covid">
         <QuestionHeadline>Had covid</QuestionHeadline>
         <QuestionWrapper>
           {['yes', 'no'].map((item, i) => {
@@ -196,7 +216,7 @@ const ShowBorderStatus = () => {
           })}
         </QuestionWrapper>
       </ShowStatusSections>
-      <ShowStatusSections>
+      <ShowStatusSections className="vaccinated">
         <QuestionHeadline>Vaccinated</QuestionHeadline>
         <QuestionWrapper>
           {['yes', 'no', 'got a first dose'].map((item, i) => {
@@ -343,7 +363,9 @@ const ShowBorderStatus = () => {
           </>
         ) : filtered_items === false ? (
           <>
-            <h2>No results for the searched criteria.</h2>
+            <h2 className="results_text">
+              No results for the searched criteria.
+            </h2>
           </>
         ) : null}
 
@@ -382,7 +404,10 @@ const ShowBorderStatus = () => {
                   <p className="time">{`Posted ${item.feedbackPostedTime}`}</p>
                   <p className="comment">{`${item.comment}`}</p>
                   <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
-                  <p>{`Time it took to pass it: ${item.waitingTime}m`}</p>
+                  <p>{`Time it took to pass it: ${
+                    +item.waitingTime < 360 && item.waitingTime + 'm'
+                  }
+                  `}</p>
                   <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
                   <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
                   <p>{`${
@@ -399,7 +424,12 @@ const ShowBorderStatus = () => {
                   <p className="time">{`Posted ${finalTime}h ago`}</p>
                   <p className="comment">{`${item.comment}`}</p>
                   <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
-                  <p>{`Time it took to pass it: ${item.waitingTime}m`}</p>
+                  <p>{`Time it took to pass it: ${
+                    +item.waitingTime < 360
+                      ? item.waitingTime + 'm'
+                      : item.waitingTime
+                  }
+                  `}</p>
                   <p>{`Status in the entered country: ${item.passengerPapersStatus.toUpperCase()}`}</p>
                   <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
                   <p>{`${
@@ -420,7 +450,12 @@ const ShowBorderStatus = () => {
                   ).toFixed(0)}m ago`}</p>
                   <p className="comment">{`${item.comment}`}</p>
                   <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
-                  <p>{`Time it took to pass it: ${item.waitingTime}m`}</p>
+                  <p>{`Time it took to pass it: ${
+                    +item.waitingTime < 360
+                      ? item.waitingTime + 'm'
+                      : item.waitingTime
+                  }
+                  `}</p>
                   <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
                   <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
                   <p>{`${
@@ -439,7 +474,12 @@ const ShowBorderStatus = () => {
                   )}s ago`}</p>
                   <p className="comment">{`${item.comment}`}</p>
                   <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
-                  <p>{`Time it took to pass it: ${item.waitingTime}m`}</p>
+                  <p>{`Time it took to pass it: ${
+                    +item.waitingTime < 360
+                      ? item.waitingTime + 'm'
+                      : item.waitingTime
+                  }
+                  `}</p>
                   <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
                   <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
                   <p>{`${
@@ -460,6 +500,7 @@ const ShowStatusSections = styled.section<any>`
   display: flex;
   flex-direction: column;
   place-self: center;
+  align-items: center;
   margin-top: ${(props) => (props.no_mt ? '0' : '3rem')};
 `;
 
@@ -512,6 +553,11 @@ const ResultSection = styled.section`
   .results_text {
     margin-top: 2rem;
     margin-bottom: 2rem;
+    background: var(--secondary_color);
+    color: var(--primary_color);
+    border-radius: 0.2rem;
+    font-weight: bold;
+    padding: 0.5rem;
   }
 `;
 

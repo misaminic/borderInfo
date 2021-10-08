@@ -17,24 +17,32 @@ import {
   GET_COMMENT,
   GET_PREVIOUS_QUESTION,
   SHOW_RIGHT_QUESTION,
+  CHANGE_TO_THE_NEXT_QUESTION,
   FEEDBACK_SUBMITING_FINISHED,
-} from './actions';
+} from '../actions/actions';
 
 import _ from 'lodash';
 
 const reducer = (state, action) => {
-  if (action.type === GET_COUNTRY_ENTERED) {
+  if (action.type === CHANGE_TO_THE_NEXT_QUESTION) {
     return {
       ...state,
-      countryEntered: action.payload,
-      currentQuestionDisplayed: 1,
+      currentQuestionDisplayed: action.payload,
+    };
+  }
+
+  if (action.type === GET_COUNTRY_ENTERED) {
+    console.log(action.payload.value, 'reducer');
+    console.log(state.countryEntered, 'state in reducer countryEntered');
+    return {
+      ...state,
+      countryEntered: action.payload.value,
     };
   }
   if (action.type === GET_COUNTRY_FROM) {
     return {
       ...state,
       countryFrom: action.payload,
-      currentQuestionDisplayed: 2,
     };
   }
 

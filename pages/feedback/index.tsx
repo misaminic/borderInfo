@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CountryEntered from '../../components/Country';
 import FromCountry from '../../components/FromCountry';
-import { useGlobalContext } from '../../context';
+import { useGlobalContext } from '../../contexts/context';
 // import ZoneColor from '../../components/ZoneColor';
 import NameOfTheBorder from '../../components/NameOfTheBorder';
 import PassengerPapersStatus from '../../components/PassengerPapersStatus';
@@ -34,6 +34,7 @@ const Feedback = () => {
     zoneColor,
     covidPassport,
     currentQuestionDisplayed,
+    isAnimated,
   }: any = useGlobalContext();
 
   return (
@@ -72,12 +73,15 @@ const Feedback = () => {
 // };
 
 const PrimarySection = styled.section`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  background: #000;
 `;
 
 export default Feedback;

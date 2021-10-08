@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useFilterContext } from '../../filterContext';
+import { useFilterContext } from '../../contexts/filterContext';
 
 type Item = {
   name: string;
@@ -34,11 +34,18 @@ const SelectElement = ({ name, value, handler, itemsData }: any) => {
     setItems(checkedData());
   }, [countryEntered, countryFrom, itemsData]);
 
+  console.log(value, 'vrednost');
+
   return (
     <>
       <label htmlFor={name}></label>
       <div className="select">
-        <select name={name} value={value} onChange={handler}>
+        <select
+          name={name}
+          value={value}
+          onChange={handler}
+          data-testid="selectElement"
+        >
           <option value="">
             {itemsData.length > 100 ? 'CHOOSE A COUNTRY' : 'CHOOSE STATUS'}
           </option>

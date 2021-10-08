@@ -1,10 +1,6 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
-import { useState, useEffect, useRef, useCallback } from 'react';
-import PrimaryCheckbox from '../components/buildingBlocks/PrimaryCheckbox';
 
 function Home() {
   return (
@@ -39,20 +35,5 @@ function Home() {
     </div>
   );
 }
-
-// export const getStaticProps: GetStaticProps = async (
-//   context: GetStaticPropsContext
-// ) => {
-//   // const urlPath = path.join(process.cwd(), 'api', 'hello');
-
-//   const response = await fetch(`http://localhost:3000/api/hello`);
-//   const data = await response.json();
-
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// };
 
 export default Home;

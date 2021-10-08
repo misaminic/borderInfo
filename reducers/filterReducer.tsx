@@ -1,9 +1,14 @@
-import { GET_ALL_ITEMS, UPDATE_FILTERS, FILTER_RESULTS } from './actions';
+import {
+  GET_ALL_ITEMS,
+  UPDATE_FILTERS,
+  FILTER_RESULTS,
+  SWAP_PLACES,
+} from '../actions/actions';
 import _ from 'lodash';
-import CovidPassport from './components/CovidPassport';
+import CovidPassport from '../components/CovidPassport';
 
 type ActionType = {
-  type: 'GET_ALL_ITEMS' | 'UPDATE_FILTERS' | 'FILTER_RESULTS';
+  type: 'GET_ALL_ITEMS' | 'UPDATE_FILTERS' | 'FILTER_RESULTS' | 'SWAP_PLACES';
   payload: any;
 };
 
@@ -32,6 +37,19 @@ type Initial_State = {
 const filterReducer = (state: Initial_State, action: ActionType) => {
   if (action.type === GET_ALL_ITEMS) {
     return { ...state, all_items: action.payload };
+  }
+
+  if (action.type === SWAP_PLACES) {
+    const countryEnteredAfterSwap = state.filters.countryEntered;
+    const countryFromAfterSwap = state.filters.countryFrom;
+    return {
+      ...state,
+      filters: {
+        ...state.filters,
+        countryEntered: countryFromAfterSwap,
+        countryFrom: countryEnteredAfterSwap,
+      },
+    };
   }
 
   if (action.type === UPDATE_FILTERS) {
@@ -73,7 +91,6 @@ const filterReducer = (state: Initial_State, action: ActionType) => {
       };
     }
     //****************************************************//
-
     return {
       ...state,
       filters: { ...state.filters, [name]: value },

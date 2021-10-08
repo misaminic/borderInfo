@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import QuestionAnswer from './QuestionAnswer';
-import { useGlobalContext } from '../context';
+import { useGlobalContext } from '../contexts/context';
 import NextButton from './buildingBlocks/NextButton';
-import AdditionalQuestionBackButton from './AdditionalQuestionBackButton';
+import AdditionalQuestionBackButton from './buildingBlocks/AdditionalQuestionBackButton';
+import QuarantineDays from './QuarantineDays';
+import { usePageAnimation } from '../styles/animations/pagesTranstions';
 
 const Quarantine = () => {
-  const {
-    getQuarantineStatus,
-    getQuarantineDays,
-    showAdditionalQuestion,
-  }: any = useGlobalContext();
+  const { getQuarantineStatus, showAdditionalQuestion }: any =
+    useGlobalContext();
 
-  const [days, setDays] = useState('');
+  const { customAnimation }: any = usePageAnimation();
 
   return (
     <>
@@ -23,19 +22,8 @@ const Quarantine = () => {
           stateHandlerFunc={getQuarantineStatus}
           questionTextLong={true}
         />
-      ) : (
-        <>
-          <h3 className="text-2xl p-8">HOW MANY DAYS?</h3>
-          <input
-            className="rounded"
-            type="number"
-            value={days}
-            onChange={(e) => setDays(e.target.value)}
-          />
-          <NextButton quarantineDays={days}>NEXT</NextButton>
-          {showAdditionalQuestion ? <AdditionalQuestionBackButton /> : null}
-        </>
-      )}
+      ) : null}
+      {showAdditionalQuestion ? <QuarantineDays /> : null}
     </>
   );
 };

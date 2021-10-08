@@ -19,7 +19,7 @@ const Button = styled.button`
   align-items: center;
   width: 9rem;
   height: 3rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
   letter-spacing: 0.1rem;
   background: #000;
   border-radius: 0.25rem;

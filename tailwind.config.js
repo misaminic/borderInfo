@@ -16,6 +16,10 @@ module.exports = {
       yellow: colors.amber,
     },
 
+    maxHeight: {
+      selectElement: '617px',
+    },
+
     extend: {
       inset: {
         '-03': '-0.3rem',

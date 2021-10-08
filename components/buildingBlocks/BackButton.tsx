@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGlobalContext } from '../../context';
+import { useGlobalContext } from '../../contexts/context';
 import styled from 'styled-components';
 
 const BackButton = () => {
@@ -23,6 +23,7 @@ const Button = styled.button`
   width: 9rem;
   height: 3rem;
   margin-top: 2rem;
+  margin-bottom: 3rem;
   letter-spacing: 0.1rem;
   background: #000;
   border-radius: 0.25rem;

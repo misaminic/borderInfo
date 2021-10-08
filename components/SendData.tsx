@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useGlobalContext } from '../context';
+import { useGlobalContext } from '../contexts/context';
 import { useRouter } from 'next/router';
 
 const SendData = () => {
@@ -17,7 +17,9 @@ const SendData = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Thank You!</h1>
+      <h1 className="text-2xl font-bold uppercase mb-10 tracking-widest">
+        Thanks!
+      </h1>
     </div>
   );
 };

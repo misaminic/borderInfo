@@ -1,5 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+import Navigation from '../components/buildingBlocks/Navigation';
+import Sidebar from '../components/buildingBlocks/Sidebar';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -46,6 +48,16 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <style jsx global>{`
+            /* Other global styles such as 'html, body' etc... */
+
+            #__next {
+              min-height: calc(100vh - 4rem);
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+          `}</style>
         </body>
       </Html>
     );

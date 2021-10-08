@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import QuestionAnswer from './QuestionAnswer';
 import BackButton from './buildingBlocks/BackButton';
-import { useGlobalContext } from '../context';
-import AdditionalQuestionBackButton from './AdditionalQuestionBackButton';
+import { useGlobalContext } from '../contexts/context';
+import AdditionalQuestionBackButton from './buildingBlocks/AdditionalQuestionBackButton';
 
 const Vaccine = () => {
   const {
@@ -27,7 +27,7 @@ const Vaccine = () => {
         </>
       ) : null}
       {showAdditionalQuestion ? (
-        <>
+        <ChooseVaccine>
           <QuestionAnswer
             question={'WHICH VACCINE HAVE YOU GOT?'}
             answer1={'PFISER'}
@@ -39,19 +39,22 @@ const Vaccine = () => {
             stateHandlerFunc={getVaccineName}
             additionalQuestionBtn={true}
           />
-        </>
+        </ChooseVaccine>
       ) : null}
     </Questions>
   );
 };
 
 const Questions = styled.article`
-  height: calc(100vh + 5rem);
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  /* height: calc(100vh + 5rem); */
+
   ul {
     list-style-type: none;
   }
+`;
+
+const ChooseVaccine = styled.article`
+  margin-top: 6rem;
 `;
 
 export default Vaccine;

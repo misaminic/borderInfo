@@ -1,36 +1,66 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useGlobalContext } from '../context';
-import countries from '../AllCountriesNames.json';
-import SelectElement from './buildingBlocks/SelectElement';
+import { useGlobalContext } from '../contexts/context';
+import { listOfCountries } from '../utils/utils';
 import BackButton from './buildingBlocks/BackButton';
+import NextButton from './buildingBlocks/NextButton';
+import SearchSelectElement from './buildingBlocks/SearchSelectElement';
+import Alert from './buildingBlocks/Alert';
+import { animated } from 'react-spring';
+import { usePageAnimation } from '../styles/animations/pagesTranstions';
 
 const FromCountry = () => {
   const {
     getCountryFrom,
     countryEntered,
-    getPreviousQuestion,
-    currentQuestionDisplayed,
+    countryFrom,
+    handleResize,
+    isSidebarMenuIconVisible,
+    alert,
   }: any = useGlobalContext();
 
-  // getting the list of countries without the one the user entered.
-  const ListOfCountriesWithoutTheEnteringOne = countries.filter((country) => {
-    return country.name !== countryEntered;
-  });
+  const { customAnimation }: any = usePageAnimation();
+
+  global.window.addEventListener('resize', handleResize);
+
+  const ListOfCountriesWithoutTheEnteringOne = listOfCountries.filter(
+    (country) => {
+      return country.value !== countryEntered;
+    }
+  );
 
   return (
     <>
-      <article className={'feedback_question_wrapper'}>
-        <label htmlFor={'countryFrom'}>Country you travelled from</label>
+      {customAnimation((style: any, isAnimated: boolean) =>
+        isAnimated ? (
+          <animated.article
+            className={`feedback_question_wrapper`}
+            style={style}
+          >
+            {isSidebarMenuIconVisible && (
+              <label htmlFor={'countryFrom'}>Country you travelled from</label>
+            )}
+            <SearchSelectElement
+              name={countryFrom}
+              value={countryFrom}
+              handler={getCountryFrom}
+              placeholder={countryFrom ? countryFrom : 'Choose country'}
+              options={ListOfCountriesWithoutTheEnteringOne}
+            />
+            {alert ? <Alert {...alert} /> : null}
 
-        <SelectElement
-          name={'countryFrom'}
-          value={countryEntered}
-          handler={getCountryFrom}
-          itemsData={ListOfCountriesWithoutTheEnteringOne}
-        />
-        <BackButton />
-      </article>
+            <div>
+              <NextButton
+                nextQuestion={{
+                  propertyToCheck: 'countryFrom',
+                  sectionNumber: 2,
+                }}
+              />
+              <BackButton />
+            </div>
+          </animated.article>
+        ) : null
+      )}
     </>
   );
 };

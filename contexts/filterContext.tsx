@@ -7,10 +7,15 @@ import React, {
   ChangeEventHandler,
   ChangeEvent,
 } from 'react';
-import reducer from './filterReducer';
-import { GET_ALL_ITEMS, UPDATE_FILTERS, FILTER_RESULTS } from './actions';
-import CovidPassport from './components/CovidPassport';
-import CountryEntered from './components/Country';
+import reducer from '../reducers/filterReducer';
+import {
+  GET_ALL_ITEMS,
+  UPDATE_FILTERS,
+  FILTER_RESULTS,
+  SWAP_PLACES,
+} from '../actions/actions';
+import CovidPassport from '../components/CovidPassport';
+import CountryEntered from '../components/Country';
 
 type Props = {
   children: JSX.Element;
@@ -21,11 +26,6 @@ enum ActionType {
   UPDATE_FILTERS = 'UPDATE_FILTERS',
   FILTER_RESULTS = 'FILTER_RESULTS',
 }
-
-// interface IReducer {
-//   type: ActionType;
-//   payload: string | number | boolean | any;
-// }
 
 type Filter_State = {
   filtered_items: any;
@@ -82,8 +82,9 @@ export const FilterProvider = ({ children }: Props) => {
   //   sets all items in reducer's state
   const [allItems, setAllItems] = useState([]);
 
-  // displaying notifications/warnings for forms
+  const [resultsVisibility, setResultsVisibility] = useState(false);
 
+  // displaying notifications/warnings for forms
   const [alert, setAlert] = useState({ show: false, msg: '' });
 
   const showAlert = useCallback((show: boolean = false, msg: string = '') => {
@@ -102,18 +103,64 @@ export const FilterProvider = ({ children }: Props) => {
     fetchAllItems();
   }, [fetchAllItems]);
 
-  const updateFilters = (e: ChangeEvent<HTMLInputElement>) => {
-    let name = e.target.name;
-    let value = e.target.value;
-    let checked = e.target.checked;
-    let inputType = e.target.localName;
+  const countriesSwapPlaces = () => {
+    if (state.filters.countryEntered && state.filters.countryFrom) {
+      dispatch({ type: SWAP_PLACES });
+    }
+  };
 
+  const updateFilters = (e: any, a: any) => {
     dispatch({ type: GET_ALL_ITEMS, payload: allItems });
 
-    dispatch({
-      type: UPDATE_FILTERS,
-      payload: { name, value, checked, inputType },
-    });
+    console.log(e, a);
+
+    if (a && a.name === 'countryEntered') {
+      let name = 'countryEntered';
+      let value = e.value;
+      let checked = true;
+      let inputType = 'select';
+
+      dispatch({
+        type: UPDATE_FILTERS,
+        payload: { name, value, checked, inputType },
+      });
+    }
+
+    if (a && a.name === 'countryFrom') {
+      let name = 'countryFrom';
+      let value = e.value;
+      let checked = true;
+      let inputType = 'select';
+
+      dispatch({
+        type: UPDATE_FILTERS,
+        payload: { name, value, checked, inputType },
+      });
+    }
+
+    if (a && a.name === 'passengerPapersStatus') {
+      let name = 'passengerPapersStatus';
+      let value = e.value;
+      let checked = true;
+      let inputType = 'select';
+
+      dispatch({
+        type: UPDATE_FILTERS,
+        payload: { name, value, checked, inputType },
+      });
+    }
+
+    if (e.target) {
+      let name = e.target.name;
+      let value = e.target.value;
+      let checked = e.target.checked;
+      let inputType = e.target.localName;
+
+      dispatch({
+        type: UPDATE_FILTERS,
+        payload: { name, value, checked, inputType },
+      });
+    }
   };
 
   const filterResults = (e: ChangeEvent<HTMLInputElement>) => {
@@ -156,12 +203,21 @@ export const FilterProvider = ({ children }: Props) => {
     // if all data is entered - dispatch action
     else {
       dispatch({ type: FILTER_RESULTS });
+      setResultsVisibility(!resultsVisibility);
     }
   };
 
   return (
     <FilterContext.Provider
-      value={{ ...state, alert, showAlert, updateFilters, filterResults }}
+      value={{
+        ...state,
+        alert,
+        resultsVisibility,
+        showAlert,
+        updateFilters,
+        filterResults,
+        countriesSwapPlaces,
+      }}
     >
       {children}
     </FilterContext.Provider>
