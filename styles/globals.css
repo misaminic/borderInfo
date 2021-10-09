@@ -431,15 +431,61 @@ select {
     transform: scale(0.95);
   }
 
-  .showBorder {
-    /* grid-template-areas: {
-      heading heading heading
-      countryEntered switch countryFrom
-      status status status
-      hadCovid vaccinated antigen pcr 
-      button button button
-    } */
+  /* .show_border {
+    display: grid;
+    grid-template-areas:
+      'heading heading heading heading heading heading heading heading heading heading heading heading'
+      'countryEntered countryEntered countryEntered countryEntered switch switch switch switch countryFrom countryFrom countryFrom countryFrom'
+      'status status status status status status status status status status status status'
+      'hadCovid hadCovid hadCovid vaccinated vaccinated vaccinated antigen antigen antigen pcr pcr pcr'
+      'covidPass covidPass covidPass covidPass covidPass covidPass covidPass covidPass covidPass covidPass covidPass covidPass'
+      'search search search search search search search search search search search search';
   }
+
+  .show_border_headline {
+    grid-area: heading;
+  }
+
+  .countryEntered {
+    grid-area: countryEntered;
+  }
+
+  .switch_country_button {
+    grid-area: switch;
+  }
+
+  .countryFrom {
+    grid-area: countryFrom;
+  }
+
+  .passenger_status {
+    grid-area: status;
+  }
+
+  .had_covid {
+    grid-area: hadCovid;
+  }
+
+  .vaccinated {
+    grid-area: vaccinated;
+  }
+  */
+
+  /*.covid_passport {
+    grid-area: covidPass;
+  }
+
+  .antigen {
+    grid-area: antigen;
+  }
+
+  .pcr {
+    grid-area: pcr;
+  }
+
+  .search_btn {
+    grid-area: search;
+  } */
 }
 
 @media screen and (max-width: 768px) {

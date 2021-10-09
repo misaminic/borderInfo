@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useGlobalContext } from '../contexts/context';
+import { useFilterContext } from '../contexts/filterContext';
 import { useRouter } from 'next/router';
 
 const SendData = () => {
   const { sendData }: any = useGlobalContext();
+  const { fetchAllItems }: any = useFilterContext();
 
   let router = useRouter();
 
@@ -12,6 +14,7 @@ const SendData = () => {
     const timeout = setTimeout(() => {
       router.push('/');
     }, 2000);
+    fetchAllItems();
     return () => clearTimeout(timeout);
   }, []);
 

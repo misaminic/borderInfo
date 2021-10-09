@@ -217,6 +217,7 @@ export const FilterProvider = ({ children }: Props) => {
         updateFilters,
         filterResults,
         countriesSwapPlaces,
+        fetchAllItems,
       }}
     >
       {children}

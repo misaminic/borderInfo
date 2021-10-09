@@ -79,8 +79,8 @@ const ShowBorderStatus = () => {
   console.log(countryEntered);
 
   return (
-    <div className=" show_border w-screen flex flex-col items-center justify-center mt-24 px-3">
-      <h1 className="text-center mb-8 text-lg font-bold">
+    <div className="w-screen flex flex-col items-center justify-center mt-24 px-3">
+      <h1 className="show_border_headline text-center mb-8 text-lg font-bold">
         SET YOUR ROUTE AND STATUS
       </h1>
       <ShowStatusSections no_mt={true} className="countryEntered">
@@ -270,7 +270,7 @@ const ShowBorderStatus = () => {
             item ? (
               <>
                 <animated.div style={style} className="item">
-                  <ShowStatusSections>
+                  <ShowStatusSections className="covid_passport">
                     <QuestionHeadline>Has covid passport</QuestionHeadline>
                     <QuestionWrapper>
                       <RadioCheckbox
@@ -298,7 +298,7 @@ const ShowBorderStatus = () => {
         </>
       ) : null}
 
-      <ShowStatusSections>
+      <ShowStatusSections className="antigen">
         <QuestionHeadline>Done antigen test</QuestionHeadline>
         <QuestionWrapper>
           {['yes', 'no'].map((item, i) => {
@@ -316,7 +316,7 @@ const ShowBorderStatus = () => {
         </QuestionWrapper>
       </ShowStatusSections>
 
-      <ShowStatusSections>
+      <ShowStatusSections className="pcr">
         <QuestionHeadline>Done PCR test</QuestionHeadline>
         <QuestionWrapper>
           {['yes', 'no'].map((item, i) => {
@@ -333,17 +333,19 @@ const ShowBorderStatus = () => {
           })}
         </QuestionWrapper>
       </ShowStatusSections>
-      {transitionForAlert((style, item) =>
-        item ? (
-          <>
-            <animated.div style={style} className="item">
-              {alert ? <Alert {...alert} /> : null}
-            </animated.div>
-          </>
-        ) : null
-      )}
+      <ShowStatusSections className="search_btn">
+        {transitionForAlert((style, item) =>
+          item ? (
+            <>
+              <animated.div style={style} className="item">
+                {alert ? <Alert {...alert} /> : null}
+              </animated.div>
+            </>
+          ) : null
+        )}
 
-      <ActionButton handler={filterResults} text={'SEARCH'} />
+        <ActionButton handler={filterResults} text={'SEARCH'} />
+      </ShowStatusSections>
       <ResultSection ref={results_section}>
         {numberOfHits > 0 && numberOfHits < 2 ? (
           <>
