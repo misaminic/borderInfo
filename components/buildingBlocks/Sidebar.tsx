@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useGlobalContext } from '../../contexts/context';
 import styled from 'styled-components';

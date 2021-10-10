@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { FiMenu } from 'react-icons/fi';
 import { useGlobalContext } from '../../contexts/context';
 
@@ -8,6 +9,14 @@ const Navigation = () => {
   return (
     <>
       <nav className="mainNavigation">
+        <div className="w-[100px]">
+          <Image
+            src="/img/logo.png"
+            alt="Picture of the author"
+            width={219}
+            height={139}
+          />
+        </div>
         <ul className="navList">
           <li>
             <Link href="/">HOME</Link>
