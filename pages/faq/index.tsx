@@ -13,17 +13,23 @@ const data = [
     id: 2,
     question: 'How accurate is an information provided by the app',
     answer:
-      'That is as well something that depends solely on users and a feedback they provided. BorderInfo cannot check if the data is correct or not.',
+      'That is something that depends solely on users and a feedback that they provide. BorderInfo cannot check if provided data is correct or not.',
   },
   {
     id: 3,
-    question: 'Why is there no option to choose a name of a border?',
+    question: 'Is app collecting any personal data about the users?',
 
     answer:
       'The app is not collecting any personal data. No data is connected to any specific user/individual.',
   },
   {
     id: 4,
+    question: 'Why is there no option to choose a border name?',
+    answer:
+      'Once the app collects enough information regarding border names, this option will be introduced.',
+  },
+  {
+    id: 5,
     question:
       'Is it possible to get a notification when my search gets some match?',
     answer: 'The option is being developed, and it will be available soon.',

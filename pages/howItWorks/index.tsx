@@ -84,8 +84,8 @@ const HowItWorks = () => {
               <li className="p-4 tracking-wide ">
                 Once that is done, you can go and press search to check if some
                 traveler has already crossed that border and posted details
-                about his trip. For example: if he has done PCR test or how long
-                it took him to cross a border.
+                about his/her trip. For example: if he/she has done PCR test or
+                how long it took him to cross a border.
               </li>
             </ul>
           </article>
@@ -104,8 +104,8 @@ const HowItWorks = () => {
               </li>
               <li className="p-4 tracking-wide">
                 After you have done that, if there is some passenger who
-                traveled the respected route and posted feedback about his trip,
-                the feedback will be shown in the &quot;Results&quot; section,
+                traveled that route and posted feedback about his/her trip, the
+                feedback will be shown in the &quot;Results&quot; section,
                 otherwise, the app will notify you that there is no results for
                 the searched criteria.
               </li>
