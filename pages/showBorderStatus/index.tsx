@@ -79,15 +79,23 @@ const ShowBorderStatus = () => {
   console.log(countryEntered);
 
   return (
-    <div className="w-screen flex flex-col items-center justify-center mt-24 px-3">
-      <h1 className="show_border_headline text-center mb-8 text-lg font-bold">
-        SET YOUR ROUTE AND STATUS
-      </h1>
-      <ShowStatusSections no_mt={true} className="countryEntered">
-        <LabelForQuestionsWithSelect htmlFor="countryEntered">
-          TRAVELLING TO
-        </LabelForQuestionsWithSelect>
-        {/* <CustomSelect
+    <>
+      <head>
+        <title>Border status</title>
+        <meta
+          name="description"
+          content="for users to check information related to borders and covid-19 regulations"
+        />
+      </head>
+      <div className="w-screen flex flex-col items-center justify-center mt-24 px-3">
+        <h1 className="show_border_headline text-center mb-8 text-lg font-bold">
+          SET YOUR ROUTE AND STATUS
+        </h1>
+        <ShowStatusSections no_mt={true} className="countryEntered">
+          <LabelForQuestionsWithSelect htmlFor="countryEntered">
+            TRAVELLING TO
+          </LabelForQuestionsWithSelect>
+          {/* <CustomSelect
           name={'countryEntered'}
           value={countryEntered}
           placeholder={countryEntered ? countryEntered : 'Choose a country'}
@@ -95,30 +103,30 @@ const ShowBorderStatus = () => {
           options={listOfCountries}
         /> */}
 
-        <SearchSelectElement
-          handler={updateFilters}
-          name={'countryEntered'}
-          value={countryEntered}
-          placeholder={countryEntered ? countryEntered : 'Choose a country'}
-          options={listOfCountries}
-        />
-      </ShowStatusSections>
-      <div className="switch_country_button">
-        <button
-          className="flex max-w-max max-h-max mt-10 mb-6 bg-transparent md:hover:text-green-500"
-          type="button"
-          onClick={countriesSwapPlaces}
-        >
-          <CgArrowsExchangeAltV className="text-4xl" />
-        </button>
-      </div>
+          <SearchSelectElement
+            handler={updateFilters}
+            name={'countryEntered'}
+            value={countryEntered}
+            placeholder={countryEntered ? countryEntered : 'Choose a country'}
+            options={listOfCountries}
+          />
+        </ShowStatusSections>
+        <div className="switch_country_button">
+          <button
+            className="flex max-w-max max-h-max mt-10 mb-6 bg-transparent md:hover:text-green-500"
+            type="button"
+            onClick={countriesSwapPlaces}
+          >
+            <CgArrowsExchangeAltV className="text-4xl" />
+          </button>
+        </div>
 
-      <ShowStatusSections no_mt={true} className="countryFrom">
-        <LabelForQuestionsWithSelect htmlFor="countryFrom">
-          TRAVELLING FROM
-        </LabelForQuestionsWithSelect>
+        <ShowStatusSections no_mt={true} className="countryFrom">
+          <LabelForQuestionsWithSelect htmlFor="countryFrom">
+            TRAVELLING FROM
+          </LabelForQuestionsWithSelect>
 
-        {/* <CustomSelect
+          {/* <CustomSelect
           name={'countryFrom'}
           value={countryFrom}
           placeholder={countryFrom ? countryFrom : 'Choose a country'}
@@ -126,15 +134,15 @@ const ShowBorderStatus = () => {
           options={listOfCountries}
         /> */}
 
-        <SearchSelectElement
-          handler={updateFilters}
-          name={'countryFrom'}
-          value={countryFrom}
-          placeholder={countryFrom ? countryFrom : 'Choose a country'}
-          options={listOfCountries}
-        />
-      </ShowStatusSections>
-      {/* <ShowStatusSections>
+          <SearchSelectElement
+            handler={updateFilters}
+            name={'countryFrom'}
+            value={countryFrom}
+            placeholder={countryFrom ? countryFrom : 'Choose a country'}
+            options={listOfCountries}
+          />
+        </ShowStatusSections>
+        {/* <ShowStatusSections>
         <div className="search_input">
           <label className="label" htmlFor="zoneColor">
             Choose zone:
@@ -165,28 +173,28 @@ const ShowBorderStatus = () => {
           </label>
         </div>
       </ShowStatusSections> */}
-      <ShowStatusSections className="passenger_status">
-        <LabelForQuestionsWithSelect
-          htmlFor="passengerPapersStatus"
-          longText={true}
-        >
-          STATUS IN THE COUNTRY YOU ARE TRAVELLING TO
-        </LabelForQuestionsWithSelect>
+        <ShowStatusSections className="passenger_status">
+          <LabelForQuestionsWithSelect
+            htmlFor="passengerPapersStatus"
+            longText={true}
+          >
+            STATUS IN THE COUNTRY YOU ARE TRAVELLING TO
+          </LabelForQuestionsWithSelect>
 
-        <SearchSelectElement
-          name={'passengerPapersStatus'}
-          value={passengerPapersStatus}
-          handler={updateFilters}
-          options={[
-            { value: 'tourist', label: 'TOURIST' },
-            { value: 'citizen', label: 'CITIZEN' },
-            { value: 'permanent resident', label: 'PERMANENT RESIDENT' },
-            { value: 'temporary resident', label: 'TEMPORARY RESIDENT' },
-          ]}
-          placeholder={'Choose status'}
-        />
+          <SearchSelectElement
+            name={'passengerPapersStatus'}
+            value={passengerPapersStatus}
+            handler={updateFilters}
+            options={[
+              { value: 'tourist', label: 'TOURIST' },
+              { value: 'citizen', label: 'CITIZEN' },
+              { value: 'permanent resident', label: 'PERMANENT RESIDENT' },
+              { value: 'temporary resident', label: 'TEMPORARY RESIDENT' },
+            ]}
+            placeholder={'Choose status'}
+          />
 
-        {/* <SelectElement
+          {/* <SelectElement
           name={'passengerPapersStatus'}
           value={passengerPapersStatus}
           handler={updateFilters}
@@ -197,45 +205,45 @@ const ShowBorderStatus = () => {
             { name: 'temporary residency' },
           ]}
         /> */}
-      </ShowStatusSections>
+        </ShowStatusSections>
 
-      <ShowStatusSections className="had_covid">
-        <QuestionHeadline>Had covid</QuestionHeadline>
-        <QuestionWrapper>
-          {['yes', 'no'].map((item, i) => {
-            return (
-              <RadioCheckbox
-                key={i}
-                name={'hadCovid'}
-                value={item}
-                handler={updateFilters}
-                valueInState={hadCovid}
-                item={item}
-              />
-            );
-          })}
-        </QuestionWrapper>
-      </ShowStatusSections>
-      <ShowStatusSections className="vaccinated">
-        <QuestionHeadline>Vaccinated</QuestionHeadline>
-        <QuestionWrapper>
-          {['yes', 'no', 'got a first dose'].map((item, i) => {
-            return (
-              <RadioCheckbox
-                key={i}
-                name={'vaccinationStatus'}
-                value={item}
-                handler={updateFilters}
-                valueInState={vaccinationStatus}
-                item={item}
-              />
-            );
-          })}
-        </QuestionWrapper>
-      </ShowStatusSections>
-      {vaccinationStatus === 'yes' ? (
-        <>
-          {/* <ShowStatusSections>
+        <ShowStatusSections className="had_covid">
+          <QuestionHeadline>Had covid</QuestionHeadline>
+          <QuestionWrapper>
+            {['yes', 'no'].map((item, i) => {
+              return (
+                <RadioCheckbox
+                  key={i}
+                  name={'hadCovid'}
+                  value={item}
+                  handler={updateFilters}
+                  valueInState={hadCovid}
+                  item={item}
+                />
+              );
+            })}
+          </QuestionWrapper>
+        </ShowStatusSections>
+        <ShowStatusSections className="vaccinated">
+          <QuestionHeadline>Vaccinated</QuestionHeadline>
+          <QuestionWrapper>
+            {['yes', 'no', 'got a first dose'].map((item, i) => {
+              return (
+                <RadioCheckbox
+                  key={i}
+                  name={'vaccinationStatus'}
+                  value={item}
+                  handler={updateFilters}
+                  valueInState={vaccinationStatus}
+                  item={item}
+                />
+              );
+            })}
+          </QuestionWrapper>
+        </ShowStatusSections>
+        {vaccinationStatus === 'yes' ? (
+          <>
+            {/* <ShowStatusSections>
             <div className="search_input">
               <label className="label" htmlFor="vaccineName">
                 VACCINE NAME:
@@ -266,235 +274,237 @@ const ShowBorderStatus = () => {
               </label>
             </div>
           </ShowStatusSections> */}
-          {transition((style, item) =>
+            {transition((style, item) =>
+              item ? (
+                <>
+                  <animated.div style={style} className="item">
+                    <ShowStatusSections className="covid_passport">
+                      <QuestionHeadline>Has covid passport</QuestionHeadline>
+                      <QuestionWrapper>
+                        <RadioCheckbox
+                          key={7}
+                          name={'covidPassport'}
+                          value={'yes'}
+                          handler={updateFilters}
+                          valueInState={covidPassport}
+                          item={'yes'}
+                        />
+                        <RadioCheckbox
+                          key={8}
+                          name={'covidPassport'}
+                          value={'no'}
+                          handler={updateFilters}
+                          valueInState={covidPassport}
+                          item={'no'}
+                        />
+                      </QuestionWrapper>
+                    </ShowStatusSections>
+                  </animated.div>
+                </>
+              ) : null
+            )}
+          </>
+        ) : null}
+
+        <ShowStatusSections className="antigen">
+          <QuestionHeadline>Done antigen test</QuestionHeadline>
+          <QuestionWrapper>
+            {['yes', 'no'].map((item, i) => {
+              return (
+                <RadioCheckbox
+                  key={i}
+                  name={'antiGenStatus'}
+                  value={item}
+                  handler={updateFilters}
+                  valueInState={antiGenStatus}
+                  item={item}
+                />
+              );
+            })}
+          </QuestionWrapper>
+        </ShowStatusSections>
+
+        <ShowStatusSections className="pcr">
+          <QuestionHeadline>Done PCR test</QuestionHeadline>
+          <QuestionWrapper>
+            {['yes', 'no'].map((item, i) => {
+              return (
+                <RadioCheckbox
+                  key={i}
+                  name={'pcrStatus'}
+                  value={item}
+                  handler={updateFilters}
+                  valueInState={pcrStatus}
+                  item={item}
+                />
+              );
+            })}
+          </QuestionWrapper>
+        </ShowStatusSections>
+        <ShowStatusSections className="search_btn">
+          {transitionForAlert((style, item) =>
             item ? (
               <>
                 <animated.div style={style} className="item">
-                  <ShowStatusSections className="covid_passport">
-                    <QuestionHeadline>Has covid passport</QuestionHeadline>
-                    <QuestionWrapper>
-                      <RadioCheckbox
-                        key={7}
-                        name={'covidPassport'}
-                        value={'yes'}
-                        handler={updateFilters}
-                        valueInState={covidPassport}
-                        item={'yes'}
-                      />
-                      <RadioCheckbox
-                        key={8}
-                        name={'covidPassport'}
-                        value={'no'}
-                        handler={updateFilters}
-                        valueInState={covidPassport}
-                        item={'no'}
-                      />
-                    </QuestionWrapper>
-                  </ShowStatusSections>
+                  {alert ? <Alert {...alert} /> : null}
                 </animated.div>
               </>
             ) : null
           )}
-        </>
-      ) : null}
 
-      <ShowStatusSections className="antigen">
-        <QuestionHeadline>Done antigen test</QuestionHeadline>
-        <QuestionWrapper>
-          {['yes', 'no'].map((item, i) => {
-            return (
-              <RadioCheckbox
-                key={i}
-                name={'antiGenStatus'}
-                value={item}
-                handler={updateFilters}
-                valueInState={antiGenStatus}
-                item={item}
-              />
-            );
-          })}
-        </QuestionWrapper>
-      </ShowStatusSections>
-
-      <ShowStatusSections className="pcr">
-        <QuestionHeadline>Done PCR test</QuestionHeadline>
-        <QuestionWrapper>
-          {['yes', 'no'].map((item, i) => {
-            return (
-              <RadioCheckbox
-                key={i}
-                name={'pcrStatus'}
-                value={item}
-                handler={updateFilters}
-                valueInState={pcrStatus}
-                item={item}
-              />
-            );
-          })}
-        </QuestionWrapper>
-      </ShowStatusSections>
-      <ShowStatusSections className="search_btn">
-        {transitionForAlert((style, item) =>
-          item ? (
+          <ActionButton handler={filterResults} text={'SEARCH'} />
+        </ShowStatusSections>
+        <ResultSection ref={results_section}>
+          {numberOfHits > 0 && numberOfHits < 2 ? (
             <>
-              <animated.div style={style} className="item">
-                {alert ? <Alert {...alert} /> : null}
-              </animated.div>
+              <QuestionHeadline>Results</QuestionHeadline>
+              <p className="results_text">
+                {`There is ${numberOfHits} passenger
+              matching your search.`}
+              </p>
             </>
-          ) : null
-        )}
-
-        <ActionButton handler={filterResults} text={'SEARCH'} />
-      </ShowStatusSections>
-      <ResultSection ref={results_section}>
-        {numberOfHits > 0 && numberOfHits < 2 ? (
-          <>
-            <QuestionHeadline>Results</QuestionHeadline>
-            <p className="results_text">
-              {`There is ${numberOfHits} passenger
+          ) : numberOfHits > 1 ? (
+            <>
+              <QuestionHeadline>Results</QuestionHeadline>
+              <p className="results_text">
+                {`There is ${numberOfHits} passengers
               matching your search.`}
-            </p>
-          </>
-        ) : numberOfHits > 1 ? (
-          <>
-            <QuestionHeadline>Results</QuestionHeadline>
-            <p className="results_text">
-              {`There is ${numberOfHits} passengers
-              matching your search.`}
-            </p>
-          </>
-        ) : filtered_items === false ? (
-          <>
-            <h2 className="results_text">
-              No results for the searched criteria.
-            </h2>
-          </>
-        ) : null}
+              </p>
+            </>
+          ) : filtered_items === false ? (
+            <>
+              <h2 className="results_text">
+                No results for the searched criteria.
+              </h2>
+            </>
+          ) : null}
 
-        {numberOfHits > 0 && <h3>Additional info</h3>}
-        {numberOfHits > 0 &&
-          _.map(results, (item: any) => {
-            // counting how much time has passed since a comment has been submited
-            let endTimeStamp = _.now();
-            // final time is in hours
-            let countTime = (endTimeStamp - item.timeStamp) / (1000 * 60 * 60);
+          {numberOfHits > 0 && <h3>Additional info</h3>}
+          {numberOfHits > 0 &&
+            _.map(results, (item: any) => {
+              // counting how much time has passed since a comment has been submited
+              let endTimeStamp = _.now();
+              // final time is in hours
+              let countTime =
+                (endTimeStamp - item.timeStamp) / (1000 * 60 * 60);
 
-            // get if time passed is half an hour or a whole hour
-            const roundToHalf = (value: any) => {
-              const converted: any = parseFloat(value).toFixed(1);
-              let decimal = converted - parseInt(converted, 10);
-              decimal = Math.round(decimal * 10);
-              if (decimal == 5) {
-                return parseInt(converted, 10) + 0.5;
+              // get if time passed is half an hour or a whole hour
+              const roundToHalf = (value: any) => {
+                const converted: any = parseFloat(value).toFixed(1);
+                let decimal = converted - parseInt(converted, 10);
+                decimal = Math.round(decimal * 10);
+                if (decimal == 5) {
+                  return parseInt(converted, 10) + 0.5;
+                }
+                if (decimal < 3 || decimal > 7) {
+                  return Math.round(converted);
+                } else {
+                  return parseInt(converted, 10) + 0.5;
+                }
+              };
+
+              const finalTime = roundToHalf(countTime);
+
+              const elapsedTimeInSeconds: any =
+                (endTimeStamp - item.timeStamp) / 1000;
+              console.log(finalTime);
+              // checking if more than one day
+              if (+finalTime > 23.5) {
+                return (
+                  <div className="each_feedback">
+                    <p className="time">{`Posted ${item.feedbackPostedTime}`}</p>
+                    <p className="comment">{`${item.comment}`}</p>
+                    <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
+                    <p>{`Time it took to pass it: ${
+                      +item.waitingTime < 360 && item.waitingTime + 'm'
+                    }
+                  `}</p>
+                    <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
+                    <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
+                    <p>{`${
+                      item.quarantineStatus === 'yes'
+                        ? `Quarantine duration: ${item.quarantineDays} days`
+                        : ''
+                    }`}</p>
+                  </div>
+                );
+                // time in hours
+              } else if (+finalTime <= 23.5 && +finalTime >= 1) {
+                return (
+                  <div className="each_feedback">
+                    <p className="time">{`Posted ${finalTime}h ago`}</p>
+                    <p className="comment">{`${item.comment}`}</p>
+                    <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
+                    <p>{`Time it took to pass it: ${
+                      +item.waitingTime < 360
+                        ? item.waitingTime + 'm'
+                        : item.waitingTime
+                    }
+                  `}</p>
+                    <p>{`Status in the entered country: ${item.passengerPapersStatus.toUpperCase()}`}</p>
+                    <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
+                    <p>{`${
+                      item.quarantineStatus === 'yes'
+                        ? `Quarantine duration: ${item.quarantineDays} days`
+                        : ''
+                    }`}</p>
+                  </div>
+                );
+                // time in minutes
+              } else if (elapsedTimeInSeconds > 60) {
+                let timeInMinutes: any =
+                  (endTimeStamp - item.timeStamp) / (1000 * 60);
+                return (
+                  <div className="each_feedback">
+                    <p className="time">{`Posted ${parseFloat(
+                      timeInMinutes
+                    ).toFixed(0)}m ago`}</p>
+                    <p className="comment">{`${item.comment}`}</p>
+                    <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
+                    <p>{`Time it took to pass it: ${
+                      +item.waitingTime < 360
+                        ? item.waitingTime + 'm'
+                        : item.waitingTime
+                    }
+                  `}</p>
+                    <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
+                    <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
+                    <p>{`${
+                      item.quarantineStatus === 'yes'
+                        ? `Quarantine duration: ${item.quarantineDays} days`
+                        : ''
+                    }`}</p>
+                  </div>
+                );
+                // time in seconds
+              } else if (elapsedTimeInSeconds < 60) {
+                return (
+                  <div className="each_feedback">
+                    <p>{`Posted ${parseFloat(elapsedTimeInSeconds).toFixed(
+                      0
+                    )}s ago`}</p>
+                    <p className="comment">{`${item.comment}`}</p>
+                    <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
+                    <p>{`Time it took to pass it: ${
+                      +item.waitingTime < 360
+                        ? item.waitingTime + 'm'
+                        : item.waitingTime
+                    }
+                  `}</p>
+                    <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
+                    <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
+                    <p>{`${
+                      item.quarantineStatus === 'yes'
+                        ? `Quarantine duration: ${item.quarantineDays} days`
+                        : ''
+                    }`}</p>
+                  </div>
+                );
               }
-              if (decimal < 3 || decimal > 7) {
-                return Math.round(converted);
-              } else {
-                return parseInt(converted, 10) + 0.5;
-              }
-            };
-
-            const finalTime = roundToHalf(countTime);
-
-            const elapsedTimeInSeconds: any =
-              (endTimeStamp - item.timeStamp) / 1000;
-            console.log(finalTime);
-            // checking if more than one day
-            if (+finalTime > 23.5) {
-              return (
-                <div className="each_feedback">
-                  <p className="time">{`Posted ${item.feedbackPostedTime}`}</p>
-                  <p className="comment">{`${item.comment}`}</p>
-                  <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
-                  <p>{`Time it took to pass it: ${
-                    +item.waitingTime < 360 && item.waitingTime + 'm'
-                  }
-                  `}</p>
-                  <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
-                  <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
-                  <p>{`${
-                    item.quarantineStatus === 'yes'
-                      ? `Quarantine duration: ${item.quarantineDays} days`
-                      : ''
-                  }`}</p>
-                </div>
-              );
-              // time in hours
-            } else if (+finalTime <= 23.5 && +finalTime >= 1) {
-              return (
-                <div className="each_feedback">
-                  <p className="time">{`Posted ${finalTime}h ago`}</p>
-                  <p className="comment">{`${item.comment}`}</p>
-                  <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
-                  <p>{`Time it took to pass it: ${
-                    +item.waitingTime < 360
-                      ? item.waitingTime + 'm'
-                      : item.waitingTime
-                  }
-                  `}</p>
-                  <p>{`Status in the entered country: ${item.passengerPapersStatus.toUpperCase()}`}</p>
-                  <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
-                  <p>{`${
-                    item.quarantineStatus === 'yes'
-                      ? `Quarantine duration: ${item.quarantineDays} days`
-                      : ''
-                  }`}</p>
-                </div>
-              );
-              // time in minutes
-            } else if (elapsedTimeInSeconds > 60) {
-              let timeInMinutes: any =
-                (endTimeStamp - item.timeStamp) / (1000 * 60);
-              return (
-                <div className="each_feedback">
-                  <p className="time">{`Posted ${parseFloat(
-                    timeInMinutes
-                  ).toFixed(0)}m ago`}</p>
-                  <p className="comment">{`${item.comment}`}</p>
-                  <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
-                  <p>{`Time it took to pass it: ${
-                    +item.waitingTime < 360
-                      ? item.waitingTime + 'm'
-                      : item.waitingTime
-                  }
-                  `}</p>
-                  <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
-                  <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
-                  <p>{`${
-                    item.quarantineStatus === 'yes'
-                      ? `Quarantine duration: ${item.quarantineDays} days`
-                      : ''
-                  }`}</p>
-                </div>
-              );
-              // time in seconds
-            } else if (elapsedTimeInSeconds < 60) {
-              return (
-                <div className="each_feedback">
-                  <p>{`Posted ${parseFloat(elapsedTimeInSeconds).toFixed(
-                    0
-                  )}s ago`}</p>
-                  <p className="comment">{`${item.comment}`}</p>
-                  <p>{`Border name: ${item.borderName.toUpperCase()}`}</p>
-                  <p>{`Time it took to pass it: ${
-                    +item.waitingTime < 360
-                      ? item.waitingTime + 'm'
-                      : item.waitingTime
-                  }
-                  `}</p>
-                  <p>{`Status: ${item.passengerPapersStatus.toUpperCase()}`}</p>
-                  <p>{`Quarantine required: ${item.quarantineStatus.toUpperCase()}`}</p>
-                  <p>{`${
-                    item.quarantineStatus === 'yes'
-                      ? `Quarantine duration: ${item.quarantineDays} days`
-                      : ''
-                  }`}</p>
-                </div>
-              );
-            }
-          })}
-      </ResultSection>
-    </div>
+            })}
+        </ResultSection>
+      </div>
+    </>
   );
 };
 

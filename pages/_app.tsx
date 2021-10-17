@@ -17,3 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 export default MyApp;
+
+export function reportWebVitals(metric: any) {
+  console.log(metric);
+}

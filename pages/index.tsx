@@ -20,12 +20,12 @@ function Home() {
           <p>MAKING TRAVELLING EASIER</p>
         </section>
         <section className={styles.intro_page}>
-          <Link href={'/showBorderStatus'}>
+          <Link href={'/showBorderStatus'} passHref>
             <button className={'primary_button'}>
               <a>Check border</a>
             </button>
           </Link>
-          <Link href={'/feedback'}>
+          <Link href={'/feedback'} passHref>
             <button className={'primary_button'}>
               <a>Post border info</a>
             </button>

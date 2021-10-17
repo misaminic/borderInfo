@@ -40,15 +40,24 @@ const Faq = () => {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState(data);
 
   return (
-    <article className="min-h-screen flex flex-col items-center mt-6 mb-8 p-4 lg:mt-28">
-      <h1 className="text-center text-2xl mt-10 mb-6 underline">F.A.Q</h1>
-      <ul className="max-w-xl">
-        {questionsAndAnswers &&
-          questionsAndAnswers.map((item: any) => {
-            return <FaqQuestion key={item.id} {...item} />;
-          })}
-      </ul>
-    </article>
+    <>
+      <head>
+        <title>FAQ</title>
+        <meta
+          name="description"
+          content="answers to the common questions about the app"
+        />
+      </head>
+      <article className="min-h-screen flex flex-col items-center mt-6 mb-8 p-4 lg:mt-28">
+        <h1 className="text-center text-2xl mt-10 mb-6 underline">F.A.Q</h1>
+        <ul className="max-w-xl">
+          {questionsAndAnswers &&
+            questionsAndAnswers.map((item: any) => {
+              return <FaqQuestion key={item.id} {...item} />;
+            })}
+        </ul>
+      </article>
+    </>
   );
 };
 

@@ -39,6 +39,13 @@ const Feedback = () => {
 
   return (
     <>
+      <head>
+        <title>Border feedback</title>
+        <meta
+          name="description"
+          content="providing feedback regarding border status and covid-19 regulations"
+        />
+      </head>
       <PrimarySection>
         {currentQuestionDisplayed === -1 && handleClick()}
         {currentQuestionDisplayed === 0 && <CountryEntered />}
