@@ -11,7 +11,6 @@ function Home() {
           name="description"
           content="providing information regarding borders and their current state regarding covid-19"
         />
-        {/* <link rel="icon" href="" /> */}
       </Head>
 
       <main className={styles.main}>
